@@ -1,7 +1,8 @@
 import Sortable from '/node_modules/sortablejs/modular/sortable.complete.esm.js';
 
 $(document).ready(function(){
-  var el = document.getElementById('items');
+
+  var el = document.getElementById('images-list');
   new Sortable(el, {
     animation: 200,
     swapThreshold: 1,
@@ -65,5 +66,4 @@ $(document).ready(function(){
     $(this).css('z-index', 0);
   });
 });
-
 
