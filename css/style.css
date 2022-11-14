@@ -57,10 +57,10 @@ header img {
   transition: all ease-in-out 0.2s;
 }
 
-.options span:hover {
+/* .options span:hover {
   background-color: lightgrey;
   box-shadow: 0 0 5px 0 grey;
-}
+} */
 
 /* TIERLIST */
 .tier-list {
@@ -139,7 +139,12 @@ header img {
   width: 100px;
 }
 
+
+
 /* SORTABLE */
 .sortable-ghost {
 opacity: 0;
 }
+
+/* TOOLTIPSTER */
+
