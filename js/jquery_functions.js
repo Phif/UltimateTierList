@@ -64,8 +64,6 @@ $(document).ready(function(){
     $(this).css('transform', 'scale(' + 1 + ')');
     $(this).css('z-index', 0);
   });
-  var tierArray = new Array["s", "a", "b", "c", "d"];
-
 });
 
 
