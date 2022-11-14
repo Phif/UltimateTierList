@@ -15,6 +15,11 @@ body {
   margin: auto;
 }
 
+a {
+  color: inherit;
+  text-decoration: none; 
+}
+
 p {
   font-weight: light;
 }
@@ -36,8 +41,23 @@ header img {
   margin-right: 20px;
 }
 
-header button {
+.options {
+  display: flex;
+  flex-flow: row nowrap;
   margin-left: auto;
+}
+
+.options span {
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0 10px;
+  transition: all ease-in-out 0.2s;
+}
+
+.options span:hover {
+  background-color: lightgrey;
+  box-shadow: 0 0 5px 0 grey;
 }
 
 /* TIERLIST */
@@ -118,13 +138,12 @@ header button {
   width: 100px;
 }
 
+/* SORTABLE */
 .sortable-ghost {
 opacity: 0;
 }
 
-#preview {
-    position:absolute;
-    display:none;
-    color:#fff;
-    width:100px;
-  }
+.ignore-elements {
+  
+}
+

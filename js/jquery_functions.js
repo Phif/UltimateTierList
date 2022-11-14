@@ -14,7 +14,7 @@ $(document).ready(function(){
     animation: 200,
     swapThreshold: 1,
     dragClass: "sortable-drag",
-    group: 'list'
+    group: 'list',
   });
 
   var el = document.getElementById('a-tier');
