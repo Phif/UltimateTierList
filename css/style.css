@@ -1,6 +1,7 @@
 /* GENERIC */
 *, *:before, *:after {
   box-sizing: border-box;
+  list-style: none;
 }
 
 html {
@@ -19,7 +20,6 @@ p {
 }
 
 ul {
-  list-style: none;
   padding-left: 0;
 }
 
@@ -109,7 +109,6 @@ header button {
   height: 100px;
   overflow: hidden;
   border-radius: 10px;
-  transition: all ease-in-out 0.5s;
 }
 
 .tier-images img {
@@ -117,33 +116,15 @@ header button {
   object-position: center; 
   height: 100px;
   width: 100px;
-  image-rendering: auto;
 }
 
-.tier-images:hover {
-  transform: scale(2.5);
-  z-index: 1;
+.sortable-ghost {
+opacity: 0;
 }
 
-.tier-images:before {
-  transition: all ease-in-out 0.5s;
-  content: attr(data-hover);
-  visibility: hidden;
-  opacity: 0;
-  width: 100px;
-  height: max-content;
-  background-color: black;
-  color: white;
-  text-align: center;
-  font-size: 0.5em;
-  padding: 0 5px;
-  position: absolute;
-  z-index: 1;
-  left: 0;
-  bottom: 0;
-}
-
-.tier-images:hover:before {
-  opacity: 0.75;
-  visibility: visible;
-}
+#preview {
+    position:absolute;
+    display:none;
+    color:#fff;
+    width:100px;
+  }
