@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  max-width: 1330px;
+  max-width: 1045px;
   margin: auto;
 }
 
@@ -140,11 +140,37 @@ header img {
 }
 
 
+.image-options-container {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 5px;
+}
+
+#add-image, #crop-rotate-image {
+  background-color: white;
+  border: 2px dashed black;
+  border-radius: 10px;
+  width: 100px;
+  height: 100px;
+}
+
+#add-image a, #crop-rotate-image a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+}
+
+#add-image .material-symbols-outlined, #crop-rotate-image .material-symbols-outlined {
+  font-size: 48px;
+}
+
+
 
 /* SORTABLE */
 .sortable-ghost {
-opacity: 0;
+  opacity: 0;
 }
 
-/* TOOLTIPSTER */
 
