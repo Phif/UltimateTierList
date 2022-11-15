@@ -174,3 +174,10 @@ header img {
 }
 
 
+.cropper {
+  max-width: 500px;
+}
+
+.cropper * {
+ width: 100%;
+}

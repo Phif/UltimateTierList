@@ -1,7 +1,6 @@
 {
   "homepage": "https://phif.github.io/UltimateTierList/",
   "dependencies": {
-    "sortablejs": "^1.15.0",
-    "tooltipster": "^4.2.8"
+    "sortablejs": "^1.15.0"
   }
 }
