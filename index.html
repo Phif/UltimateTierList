@@ -33,7 +33,7 @@
 <body>
   <header>
     <img src="images/favicon.png">
-    <h1>Super site de Tier List</h1>
+    <h1>ULTIMATE TIER LIST MAKER</h1>
     <div class="options">
       <a href="#" class="tooltip" title="Delete ALL images">
         <span class="material-symbols-outlined">delete</span>
@@ -47,44 +47,32 @@
     </div>
   </header>
   <main>
-    <h2>Titre</h2>
-    <div class="tier-list">
+    <h2 id="tierlist-title">Double-click to edit tier list title</h2>
+    <div class="tier-list" id="tier-list-id">
       <div class="tier" id="s-tier">
-        <div class="tier-options">
-          <span class="material-symbols-outlined">drag_indicator</span>
-        </div>
+        <span class="material-symbols-outlined drag-item">drag_indicator</span>
         <div class="tier-title" id="edit-tier-s"><p>S</p></div>
       </div>
       
       <div class="tier" id="a-tier">
-        <div class="tier-options">
-          <span class="material-symbols-outlined">drag_indicator</span>
-
-        </div>
+        <span class="material-symbols-outlined drag-item">drag_indicator</span>
         <div class="tier-title" id="edit-tier-a">A</div>
       </div>
       
       <div class="tier" id="b-tier">
-        <div class="tier-options">
-          <span class="material-symbols-outlined">drag_indicator</span>
-
-        </div>
+        <span class="material-symbols-outlined drag-item">drag_indicator</span>
         <div class="tier-title" id="edit-tier-b">B</div>
       </div>
       
       <div class="tier" id="c-tier">
-        <div class="tier-options">
-          <span class="material-symbols-outlined">drag_indicator</span>
-
-        </div>
+        <span class="material-symbols-outlined drag-item">drag_indicator</span>
+        
         <div class="tier-title" id="edit-tier-c">C</div>
       </div>
       
       <div class="tier" id="d-tier">
-        <div class="tier-options">
-          <span class="material-symbols-outlined">drag_indicator</span>
-
-        </div>
+        <span class="material-symbols-outlined drag-item">drag_indicator</span>
+        
         <div class="tier-title" id="edit-tier-d">D</div>
       </div>
     </div>
@@ -94,13 +82,13 @@
         <img src="images/tierlist/5v8d025ktwi81.png">
       </li> -->
     </ul>
-       
+    
     <div class ="image-options-container">
       <!-- <label for="input-file" class="image-options tooltip" title="ADD IMAGE (Drag & Drop / Click to browse)"><span class="material-symbols-outlined ">add_photo_alternate</span></label> -->
       <input type="file" accept="image/*" name="image" class ="image-options" id="input-file" multiple></input>
     </div>
     <!-- <div class="image-options-container tooltip" id="add-image"></div> -->
-
+    
     
   </div>  
 </main>

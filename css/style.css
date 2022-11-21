@@ -102,7 +102,13 @@ header img {
   text-align: center;
   word-break: break-word;
   z-index: 10;
+  cursor: pointer;
 }
+
+#tierlist-title {
+  cursor: pointer;
+}
+
 
 #s-tier {
   background-color: #B20022;
@@ -122,6 +128,10 @@ header img {
 
 #d-tier {
   background-color: #5EB1D4;
+}
+
+.drag-item:hover {
+  cursor: move;
 }
 
 .tier-images-container {
