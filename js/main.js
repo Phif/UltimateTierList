@@ -106,5 +106,73 @@ $(function() {
         }
     });
     //----------//
+
+
+    //----- DOUBLE CLICK TO EDIT -----//
+    $(document).on("dblclick", "#edit-tier-s", function(){
+        var current = $(this).text();
+        $("#edit-tier-s").html(`<textarea class="form-control" id="newcont" style="width:100px;">${current}</textarea>`);
+        $("#newcont").focus();
+        
+        $("#newcont").focus(function() {
+            console.log('in');
+        }).blur(function() {
+             var newcont = $("#newcont").val();
+             $("#edit-tier-s").text(newcont);
+        });
+    })
+
+    $(document).on("dblclick", "#edit-tier-a", function(){
+        var current = $(this).text();
+        $("#edit-tier-a").html(`<textarea class="form-control" id="newcont" style="width:100px;">${current}</textarea>`);
+        $("#newcont").focus();
+        
+        $("#newcont").focus(function() {
+            console.log('in');
+        }).blur(function() {
+            var newcont = $("#newcont").val();
+            $("#edit-tier-a").text(newcont);
+        });
+    })
+
+    $(document).on("dblclick", "#edit-tier-b", function(){
+        var current = $(this).text();
+        $("#edit-tier-b").html(`<textarea class="form-control" id="newcont" style="width:100px;">${current}</textarea>`);
+        $("#newcont").focus();
+        
+        $("#newcont").focus(function() {
+            console.log('in');
+        }).blur(function() {
+             var newcont = $("#newcont").val();
+             $("#edit-tier-b").text(newcont);
+        });
+    })
+
+    $(document).on("dblclick", "#edit-tier-c", function(){
+        var current = $(this).text();
+        $("#edit-tier-c").html(`<textarea class="form-control" id="newcont" style="width:100px;">${current}</textarea>`);
+        $("#newcont").focus();
+        
+        $("#newcont").focus(function() {
+            console.log('in');
+        }).blur(function() {
+             var newcont = $("#newcont").val();
+             $("#edit-tier-c").text(newcont);
+        });
+    })
+
+    $(document).on("dblclick", "#edit-tier-d", function(){
+        var current = $(this).text();
+        $("#edit-tier-d").html(`<textarea class="form-control" id="newcont" style="width:100px;">${current}</textarea>`);
+        $("#newcont").focus();
+        
+        $("#newcont").focus(function() {
+            console.log('in');
+        }).blur(function() {
+             var newcont = $("#newcont").val();
+             $("#edit-tier-d").text(newcont);
+        });
+    })
+    //----------//
 });
 
