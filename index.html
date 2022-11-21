@@ -23,11 +23,10 @@
   <!-- Libraries -->
   <script src="./js/jquery-3.6.1.min.js"></script>
   <script src="./js/jquery-ui.min.js"></script>
-  <script type="module" src="./js/jquery_sortable.js"></script>
   
-  <!-- Plugins -->
-  <script src="./js/jquery_tooltip.js"></script>
-
+  <!-- JS -->
+  <script type="module" src="./js/main.js"></script>
+  
   
 </head>
 
@@ -36,7 +35,7 @@
     <img src="images/favicon.png">
     <h1>Super site de Tier List</h1>
     <div class="options">
-      <a href="#" class="tooltip" title="Delete images">
+      <a href="#" class="tooltip" title="Delete ALL images">
         <span class="material-symbols-outlined">delete</span>
       </a>
       <a href="#" class="tooltip" title="Save TierList">
@@ -97,71 +96,20 @@
     </div>
     
     <ul class="tier-images-container" id="images-list">
-      <li class="tier-images">
+      <!-- <li class="tier-images">
         <img src="images/tierlist/5v8d025ktwi81.png">
-      </li>
-      
-      <li class="tier-images">
-        <img src="images/tierlist/1920x1080-414922-anime-anime-girls-Nier-Automata-2B-Nier-Automata.jpg">
-      </li>
-      
-      <li class="tier-images">
-        <img src="images/tierlist/1273306.jpg">
-      </li>
-      
-      <li class="tier-images">
-        <img src="images/tierlist/cyberpunk-cyberpunk-anime.gif">
-      </li>
-      
-      <li class="tier-images">
-        <img src="images/tierlist/Cyberpunk-Edgerunners-S1-Poster-Lucy-en.jpg">
-      </li>
-      
-      <li class="tier-images">
-        <img src="images/tierlist/Fgofr8yVsAABoib.jpg">
-      </li>
-      
-      <li class="tier-images">
-        <img src="images/tierlist/FO60WztXEAorqXp.jpg">
-      </li>
-      
-      <li class="tier-images">
-        <img src="images/tierlist/IMG_7609.jpg">
-      </li>
-      
-      <li class="tier-images">
-        <img src="images/tierlist/lucy-cyberpunk-edgerunners.gif">
-      </li>
-      
-      <li class="tier-images" >
-        <img src="images/tierlist/sample-cc51073f15e34899db4fee86aafb7d00.jpg">
-      </li>
-      
-      <li class="tier-images">
-        <img src="images/tierlist/tumblr_229ff902aa7548c936e21d3b7c4c086c_bf698eea_1280.gif">
-      </li>
-      
-      <li class="tier-images">
-        <img src="images/tierlist/tumblr_b1911b69717c200f92f747c7d13471f9_9ac12e61_1280.jpg">
-      </li>
-      
-      <li class="tier-images">
-        <img src="images/tierlist/unknown.png">
-      </li>        
+      </li> -->
     </ul>
-    <div class="image-options-container">
-      <div class="tooltip" id="add-image">
-        <a href="#" class="tooltip" title="Add image (Drop images or Click to browse)">
-          <span class="material-symbols-outlined">add_photo_alternate</span>
-        </a>
-      </div>  
-      <div class="tooltip" id="crop-rotate-image">
-        <a href="#" class="tooltip" title="Crop and rotate image (Drag and drop)">
-          <span class="material-symbols-outlined">crop_rotate</span>
-        </a>
-      </div>  
-    </div>  
-  </main>
-  
+       
+    <div class ="image-options-container">
+      <!-- <label for="input-file" class="image-options tooltip" title="ADD IMAGE (Drag & Drop / Click to browse)"><span class="material-symbols-outlined ">add_photo_alternate</span></label> -->
+      <input type="file" accept="image/*" name="image" class ="image-options" id="input-file" multiple></input>
+    </div>
+    <!-- <div class="image-options-container tooltip" id="add-image"></div> -->
+
+    
+  </div>  
+</main>
+
 </body>
 </html>

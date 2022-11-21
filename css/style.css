@@ -31,7 +31,7 @@ ul {
 /* HEADER */
 header {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   align-items: center;
 }
 
@@ -50,6 +50,7 @@ header img {
 .options a {
   margin: 0 10px;
 }
+
 .options span {
   background-color: white;
   border-radius: 5px;
@@ -71,7 +72,7 @@ header img {
 
 .tier {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   gap: 5px;
   padding: 5px;
   border-radius: 10px;
@@ -146,7 +147,10 @@ header img {
   gap: 5px;
 }
 
-#add-image, #crop-rotate-image {
+.image-options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: white;
   border: 2px dashed black;
   border-radius: 10px;
@@ -154,30 +158,15 @@ header img {
   height: 100px;
 }
 
-#add-image a, #crop-rotate-image a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  height: 100px;
+.image-options span {
+  font-size: 48px !important;
 }
 
-#add-image .material-symbols-outlined, #crop-rotate-image .material-symbols-outlined {
-  font-size: 48px;
+#input-file {
+  /* display: none; */
 }
-
-
 
 /* SORTABLE */
 .sortable-ghost {
   opacity: 0;
-}
-
-
-.cropper {
-  max-width: 500px;
-}
-
-.cropper * {
- width: 100%;
 }
