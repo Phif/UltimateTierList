@@ -2,8 +2,8 @@ import Sortable from '/node_modules/sortablejs/modular/sortable.complete.esm.js'
 
 $(function() {
     //----- SORTABLE -----//
-    var ele = document.getElementById('tier-list-id');
-    new Sortable(ele, {
+    var el = document.querySelector('.tier-list');
+    new Sortable(el, {
         animation: 200,
         swapThreshold: 1,
     });
@@ -88,7 +88,6 @@ $(function() {
             var current = $(this).text();
             $(element).html(`<textarea class="form-control" id="newcont" style="width:100px; height:100px;">${current}</textarea>`);
             $("#newcont").focus();
-            
             $("#newcont").focus().blur(function() {
                 var newcont = $("#newcont").val();
                 $(element).text(newcont);
@@ -101,7 +100,6 @@ $(function() {
         var current = $(this).text();
         $("#tierlist-title").html(`<input class="form-control" id="newcont" placeholder="${current}" style="width:100%"></input>`);
         $("#newcont").focus();
-        
         $("#newcont").focus().blur(function() {
             var newcont = $("#newcont").val();
             if (newcont == "") {
@@ -111,11 +109,15 @@ $(function() {
             }
         });
     })
-    
-    
-    
-    
     //----------//
     
+    /* COLOR PICKER */
+    let colorPicker = document.querySelectorAll(".color-picker");
+    colorPicker.forEach(element => {
+        element.addEventListener("input", function(){ 
+            element.parentElement.style.backgroundColor = event.target.value;
+         });
+    });
+    //----------//
 });
 
