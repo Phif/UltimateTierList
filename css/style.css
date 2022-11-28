@@ -109,6 +109,12 @@ header img {
   cursor: pointer;
 }
 
+.images-sort {
+  background-color: aqua;
+  flex: 1 1 0;
+  height: 100px;
+}
+
 
 #s-tier {
   background-color: #B20022;
@@ -128,6 +134,12 @@ header img {
 
 #d-tier {
   background-color: #5EB1D4;
+}
+
+.color-picker {
+  cursor: pointer;
+  width: 30px;
+  height:30px;
 }
 
 .drag-item:hover {
