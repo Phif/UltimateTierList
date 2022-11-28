@@ -96,16 +96,16 @@ $(function() {
     });
     
     // Tierlist title
-    $(document).on("dblclick", "#tierlist-title", function(){
+    $(document).on("dblclick", "#tier-list-title", function(){
         var current = $(this).text();
-        $("#tierlist-title").html(`<input class="form-control" id="newcont" placeholder="${current}" style="width:100%"></input>`);
+        $("#tier-list-title").html(`<input class="form-control" id="newcont" placeholder="${current}" style="width:100%"></input>`);
         $("#newcont").focus();
         $("#newcont").focus().blur(function() {
             var newcont = $("#newcont").val();
             if (newcont == "") {
-                $("#tierlist-title").text("Double-click to edit tier list title");
+                $("#tier-list-title").text("Double-click to edit tier list title");
             } else {
-                $("#tierlist-title").text(newcont);
+                $("#tier-list-title").text(newcont);
             }
         });
     })
@@ -119,5 +119,8 @@ $(function() {
          });
     });
     //----------//
+
+    /* ADD TIER */
+
 });
 
