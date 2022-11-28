@@ -112,8 +112,8 @@ $(function() {
     //----------//
     
     /* COLOR PICKER */
-    let colorPicker = document.querySelectorAll(".color-picker");
-    colorPicker.forEach(element => {
+    let colorPickers = document.querySelectorAll(".color-picker");
+    colorPickers.forEach(element => {
         element.addEventListener("input", function(){ 
             element.parentElement.style.backgroundColor = event.target.value;
          });

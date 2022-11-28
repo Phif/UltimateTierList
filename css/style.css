@@ -28,6 +28,14 @@ ul {
   padding-left: 0;
 }
 
+.button {
+  display: flex;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  transition: all ease-in-out 0.2s;
+  width: fit-content;
+}
 /* HEADER */
 header {
   display: flex;
@@ -58,16 +66,12 @@ header img {
   transition: all ease-in-out 0.2s;
 }
 
-/* .options span:hover {
-  background-color: lightgrey;
-  box-shadow: 0 0 5px 0 grey;
-} */
-
 /* TIERLIST */
 .tier-list {
   display: flex;
   flex-flow: column nowrap;
   gap: 5px;
+  margin: 10px 0;
 }
 
 .tier {
