@@ -12,18 +12,25 @@ $(function() {
     
     let imageSortable = document.querySelectorAll(".images-sort");
     let imageSortableArray = new Array;
-    for (let i = 0; i < imageSortable.length; i++) {
-        imageSortableArray.push(imageSortable[i].getAttribute("id"));
+    updateSortables();
+
+    function updateSortables() {
+        imageSortable = document.querySelectorAll(".images-sort");
+        imageSortableArray = new Array;
+        for (let i = 0; i < imageSortable.length; i++) {
+            imageSortableArray.push(imageSortable[i].getAttribute("id"));
+        }
+
+        imageSortableArray.forEach(element => {
+            var el = document.getElementById(element);
+            new Sortable(el, {
+                animation: 200,
+                swapThreshold: 1,
+                group: 'list'
+            });
+        });
     }
 
-    imageSortableArray.forEach(element => {
-        var el = document.getElementById(element);
-        new Sortable(el, {
-            animation: 200,
-            swapThreshold: 1,
-            group: 'list'
-        });
-    });
     //----------//
     
     
@@ -48,13 +55,16 @@ $(function() {
     
     $(document).on("mousedown", ".tier-images", function() {
         $(this).css('transition', 'transform ease-in-out 0.2s');
+        $(this).css('transition-delay', '0.2s');
+        $(this).css('transition-property', 'transform');
         $(this).css('transform', 'scale(' + 2 + ')');
         $(this).css('z-index', 2);
     });
     
     $(document).on("mouseup", ".tier-images", function() {
-        $(this).css('transition', 'all ease-in-out 0.2s');
-        $(this).css('transform', 'scale(' + 1 + ')');
+        $(this).css('transition-delay', '0s');
+        // $(this).css('transition', 'all ease-in-out 0.2s');
+        // $(this).css('transform', 'scale(' + 1 + ')');
         $(this).css('z-index', 0);
     });
     //----------//
@@ -103,8 +113,9 @@ $(function() {
         tierTitlesArray.forEach(element => {
             $(document).on("click", element, function(){
                 var current = $(this).text();
-                $(element).html(`<textarea class="form-control" id="newcont" style="width:100px; height:100px;">${current}</textarea>`);
+                $(element).html(`<textarea id="newcont" style="width:100px; height:90px;">${current}</textarea>`);
                 $("#newcont").focus();
+                $("#newcont").select()
                 $("#newcont").focus().blur(function() {
                     var newcont = $("#newcont").val();
                     $(element).text(newcont);
@@ -116,7 +127,7 @@ $(function() {
     // Tierlist title
     $(document).on("click", "#tier-list-title", function(){
         var current = $(this).text();
-        $("#tier-list-title").html(`<input class="form-control" id="newcont" placeholder="${current}" style="width:100%"></input>`);
+        $("#tier-list-title").html(`<input id="newcont" placeholder="${current}" style="width:100%"></input>`);
         $("#newcont").focus();
         $("#newcont").focus().blur(function() {
             var newcont = $("#newcont").val();
@@ -146,12 +157,10 @@ $(function() {
     let divTierNumber = 5;
     
     // Default colors
-    document.querySelector("#tier-title-0").parentElement.style.backgroundColor = "#b20022";
-    document.querySelector("#tier-title-1").parentElement.style.backgroundColor = "#ff7f00";
-    document.querySelector("#tier-title-2").parentElement.style.backgroundColor = "#e5e52e";
-    document.querySelector("#tier-title-3").parentElement.style.backgroundColor = "#71dc56";
-    document.querySelector("#tier-title-4").parentElement.style.backgroundColor = "#5eb1d4";
-    document.querySelector("#tier-title-5").parentElement.style.backgroundColor = "#d45eba";
+    let defaultTierColors = ["#b20022", "#ff7f00", "#e5e52e", "#71dc56", "#5eb1d4", "#d45eba"];
+    for (let i = 0; i < defaultTierColors.length; i++) {
+        document.querySelector(`#tier-title-${i}`).parentElement.style.backgroundColor = defaultTierColors[i];
+    }
 
     let buttonAddTier = document.querySelector("#add-tier");
     buttonAddTier.addEventListener("click", function() {
@@ -176,7 +185,8 @@ $(function() {
         divTierTitle.innerText = "New Tier";
         
         let divTierImages = document.createElement("div");
-        divTierImages.setAttribute("class", "image-sort");
+        divTierImages.setAttribute("class", "images-sort");
+        divTierImages.setAttribute("id", `images-sort-${divTierNumber}`);
         
         let divTierList = document.querySelector("#tier-list");
         
@@ -188,6 +198,7 @@ $(function() {
         
         updateColorPickers();
         updateTierTitles();
+        updateSortables();
     });
 
 });
