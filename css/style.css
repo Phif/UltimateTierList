@@ -185,10 +185,6 @@ main {
   image-rendering: auto;
 }
 
-.tier-images img:active {
-  transform: scale(2);
-}
-
 /* .image-options-container {
   display: flex;
   flex-flow: row wrap;
