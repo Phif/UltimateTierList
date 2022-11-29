@@ -182,7 +182,7 @@ main {
   border-radius: 10px;
   height: 100px;
   width: 100px;
-  image-rendering: auto;
+  image-rendering: optimizeQuality;
 }
 
 /* .image-options-container {

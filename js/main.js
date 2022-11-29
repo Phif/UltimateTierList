@@ -63,7 +63,7 @@ $(function() {
     
     $(document).on("mouseup", ".tier-images", function() {
         $(this).css('transition-delay', '0s');
-        // $(this).css('transition', 'all ease-in-out 0.2s');
+        $(this).css('transition', 'all ease-in-out 0.2s');
         // $(this).css('transform', 'scale(' + 1 + ')');
         $(this).css('z-index', 0);
     });
