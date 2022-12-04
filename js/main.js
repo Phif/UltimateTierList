@@ -13,14 +13,14 @@ $(function() {
     let imageSortable = document.querySelectorAll(".images-sort");
     let imageSortableArray = new Array;
     updateSortables();
-
+    
     function updateSortables() {
         imageSortable = document.querySelectorAll(".images-sort");
         imageSortableArray = new Array;
         for (let i = 0; i < imageSortable.length; i++) {
             imageSortableArray.push(imageSortable[i].getAttribute("id"));
         }
-
+        
         imageSortableArray.forEach(element => {
             var el = document.getElementById(element);
             new Sortable(el, {
@@ -30,7 +30,7 @@ $(function() {
             });
         });
     }
-
+    
     //----------//
     
     
@@ -81,6 +81,7 @@ $(function() {
                     const addedFile = event.target;
                     const li = document.createElement("li");
                     li.setAttribute("class", "tier-images");
+                    li.setAttribute("ondragstart", "drag(event)");
                     const img = document.createElement("img");
                     img.src = addedFile.result;
                     img.title = files[i].name;
@@ -88,7 +89,6 @@ $(function() {
                     li.appendChild(img);
                 });
                 reader.readAsDataURL(files[i]);
-                
             }
         } else {
             alert("Your browser does not support File API");
@@ -105,7 +105,7 @@ $(function() {
     function updateTierTitles() {
         tierTitles = document.querySelectorAll(".tier-title");
         tierTitlesArray = new Array;
-
+        
         for (let i = 0; i < tierTitles.length; i++) {
             tierTitlesArray.push("#" + tierTitles[i].getAttribute("id"));
         }
@@ -132,7 +132,7 @@ $(function() {
         $("#newcont").focus().blur(function() {
             var newcont = $("#newcont").val();
             if (newcont == "") {
-                $("#tier-list-title").text("Double-click to edit tier list title");
+                $("#tier-list-title").text("Click to edit your Tier List's title");
             } else {
                 $("#tier-list-title").text(newcont);
             }
@@ -157,11 +157,11 @@ $(function() {
     let divTierNumber = 5;
     
     // Default colors
-    let defaultTierColors = ["#b20022", "#ff7f00", "#e5e52e", "#71dc56", "#5eb1d4", "#d45eba"];
+    let defaultTierColors = ["#cc0044", "#ff7f00", "#e5e52e", "#71dc56", "#5eb1d4", "#d45eba"];
     for (let i = 0; i < defaultTierColors.length; i++) {
         document.querySelector(`#tier-title-${i}`).parentElement.style.backgroundColor = defaultTierColors[i];
     }
-
+    
     let buttonAddTier = document.querySelector("#add-tier");
     buttonAddTier.addEventListener("click", function() {
         divTierNumber += 1;
@@ -200,6 +200,18 @@ $(function() {
         updateTierTitles();
         updateSortables();
     });
-
+    
+    /* REMOVE IMAGE */
+    function allowDrop(ev)
+    {
+        ev.preventDefault();
+    }
+    function drop(ev)
+    {
+        ev.preventDefault();
+        var data=ev.dataTransfer.getData("Text");
+        var el = document.getElementById(data);
+        el.parentNode.removeChild(el);
+    }
 });
 

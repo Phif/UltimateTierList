@@ -47,47 +47,47 @@
     </div>
   </header>
   <main>
-    <h2 id="tier-list-title">Click to edit Tier List title</h2>
+    <h2 id="tier-list-title">Click to edit your Tier List's title</h2>
     <div id="tier-list">
       
       <div class="tier">
-        <span class="material-symbols-outlined handle">drag_indicator</span>
-        <input type="color" value="#b20022" class="color-picker" name="Pick a color!">
-        <div class="tier-title" id="tier-title-0"><p>S</p></div>
+        <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
+        <input type="color" value="#cc0044" class="color-picker" title="Pick a color!">
+        <div class="tier-title" id="tier-title-0">S</div>
         <div class="images-sort" id="images-sort-0"></div>
       </div>
       
       <div class="tier">
-        <span class="material-symbols-outlined handle">drag_indicator</span>
-        <input type="color" value="#ff7f00" class="color-picker">
+        <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
+        <input type="color" value="#ff7f00" class="color-picker" title="Pick a color!">
         <div class="tier-title" id="tier-title-1">A</div>
         <div class="images-sort" id="images-sort-1"></div>
       </div>
       
       <div class="tier">
-        <span class="material-symbols-outlined handle">drag_indicator</span>
-        <input type="color" value="#e5e52e" class="color-picker">
+        <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
+        <input type="color" value="#e5e52e" class="color-picker" title="Pick a color!">
         <div class="tier-title" id="tier-title-2">B</div>
         <div class="images-sort" id="images-sort-2"></div>
       </div>
       
       <div class="tier">
-        <span class="material-symbols-outlined handle">drag_indicator</span>
-        <input type="color" value="#71dc56" class="color-picker">
+        <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
+        <input type="color" value="#71dc56" class="color-picker" title="Pick a color!">
         <div class="tier-title" id="tier-title-3">C</div>
         <div class="images-sort" id="images-sort-3"></div>
       </div>
       
       <div class="tier">
-        <span class="material-symbols-outlined handle">drag_indicator</span>
-        <input type="color" value="#5eb1d4" class="color-picker">
+        <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
+        <input type="color" value="#5eb1d4" class="color-picker" title="Pick a color!">
         <div class="tier-title" id="tier-title-4">D</div>
         <div class="images-sort" id="images-sort-4"></div>
       </div>
       
       <div class="tier">
-        <span class="material-symbols-outlined handle">drag_indicator</span>
-        <input type="color" value="#d45eba" class="color-picker">
+        <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
+        <input type="color" value="#d45eba" class="color-picker" title="Pick a color!">
         <div class="tier-title" id="tier-title-5">F</div>
         <div class="images-sort" id="images-sort-5"></div>
       </div>
@@ -97,17 +97,30 @@
     </div>
     
     <ul class="uploaded-images-list images-sort" id="images-list">
-      <!-- <li class="tier-images">
-        <img src="images/tierlist/5v8d025ktwi81.png">
-      </li> -->
       <label for="input-file" id="add-image" title="Add image(s) (Drag & Drop / Click to browse)">
         <span class="material-symbols-outlined">add_photo_alternate</span>
         <input type="file" accept="image/*" name="image" id="input-file" multiple>
       </label>
+      <label for="delete-image" id="delete-image" title="Delete an image (Drag & Drop)">
+        <span class="material-symbols-outlined">hide_image</span>
+      </label>
     </ul>
   </main>
   <footer>
-    
+    <div class="footer-container">
+      Commands:
+      <ul>
+        <li>
+          • <em>Click</em> on the Tier List's title or a Tier's name to edit it
+        </li>
+        <li>
+          • <em>Hold click</em> on an uploaded image to zoom it and display its caption
+        </li>
+        <li>
+          • <em>Double click</em> on an uploaded image to crop it yourself or to edit its caption
+        </li>
+      </ul>
+    </div>
   </footer>
 </body>
 </html>
