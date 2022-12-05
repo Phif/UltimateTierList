@@ -118,10 +118,11 @@ $(function() {
 
     //----------//
     
-    //----- DOUBLE CLICK TO EDIT -----//
+    //----- TEXT EDIT -----//
     // Tier title
     let tierTitles = document.querySelectorAll(".tier-title");
     let tierTitlesArray = new Array;
+    let firstClick = true;
     updateTierTitles();
     function updateTierTitles() {
         tierTitles = document.querySelectorAll(".tier-title");
@@ -134,18 +135,22 @@ $(function() {
         tierTitlesArray.forEach(element => {
             $(document).on("click", element, function(){
                 var current = $(this).text();
-                $(element).html(`<textarea id="newcont" style="width:100px; height:90px;">${current}</textarea>`);
-                $("#newcont").focus();
-                $("#newcont").select()
+                if (firstClick) {
+                    $(element).html(`<textarea id="newcont" style="width:100px; height:90px;">${current}</textarea>`);
+                    $("#newcont").focus();
+                    $("#newcont").select()
+                    firstClick = false;
+                } 
                 $("#newcont").focus().blur(function() {
                     var newcont = $("#newcont").val();
                     $(element).text(newcont);
+                    firstClick = true;
                 });
             })
         });
     }
     
-    // Tierlist title
+    // Tier List title
     $(document).on("click", "#tier-list-title", function(){
         var current = $(this).text();
         $("#tier-list-title").html(`<input id="newcont" placeholder="${current}" style="width:100%"></input>`);
