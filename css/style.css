@@ -18,15 +18,15 @@ ul {
   padding-left: 0;
 }
 
-.button {
+button {
   cursor: pointer;
   display: flex;
   background-color: white;
-  border: 2px solid black;
+  border: none;
   border-radius: 5px;
   padding: 10px;
   transition: all ease-in-out 0.2s;
-  width: fit-content;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
 }
 
 /* HEADER */
@@ -49,10 +49,7 @@ header img {
   display: flex;
   flex-flow: row nowrap;
   margin-left: auto;
-}
-
-.options a {
-  margin: 0 10px;
+  gap: 10px;
 }
 
 /* TIERLIST */
@@ -112,7 +109,7 @@ main {
   border-radius: 10px;
   padding: 5px;
   color: black;
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: bolder;
   text-align: center;
   word-break: break-word;
@@ -186,7 +183,6 @@ main {
   height: 100px;
   position: relative;
   transition: all linear 0.2s;
-  cursor: pointer;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
 }
 
@@ -209,17 +205,26 @@ main {
 
 #add-tier:hover {
   border: 5px solid grey;
+  cursor: pointer;
+  color: grey;
+}
+
+#delete-tier:hover {
+  border: 5px solid grey;
+  cursor: pointer;
   color: grey;
 }
 
 #add-image:hover {
   border: 5px solid cornflowerblue;
   color: cornflowerblue;
+  cursor: pointer;
 }
 
 #delete-image:hover {
   border: 5px solid crimson;
   color: crimson;
+  cursor: default;
 }
 
 #input-file {
@@ -238,6 +243,7 @@ footer {
   color: white;
   width: 100%;
   padding: 20px 0;
+  font-weight: 300;
 }
 
 .footer-container {

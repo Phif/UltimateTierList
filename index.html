@@ -41,57 +41,57 @@
     <img src="images/favicon.png" id="yoyo">
     <h1>ULTIMATE TIER LIST MAKER</h1>
     <div class="options">
-      <a href="#" class="button" title="Delete ALL images">
+      <button title="Delete all images">
         <span class="material-symbols-outlined">delete</span>
-      </a>
-      <a href="#" class="button" title="Save TierList">
+      </button>
+      <button title="Save Tier List">
         <span class="material-symbols-outlined">save</span>
-      </a>
-      <a href="#" class="button" title="Share TierList">
+      </button>
+      <button title="Share Tier List">
         <span class="material-symbols-outlined">share</span>
-      </a>
+      </button>
     </div>
   </header>
   <main>
     <h2 id="tier-list-title">Click to edit your Tier List's title</h2>
     <div id="tier-list">
       
-      <div class="tier">
+      <div class="tier" id="tier-0">
         <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
         <input type="color" value="#cc0044" class="color-picker" title="Pick a color!">
         <div class="tier-title" id="tier-title-0">S</div>
         <div class="images-sort" id="images-sort-0"></div>
       </div>
       
-      <div class="tier">
+      <div class="tier" id="tier-1">
         <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
         <input type="color" value="#ff7f00" class="color-picker" title="Pick a color!">
         <div class="tier-title" id="tier-title-1">A</div>
         <div class="images-sort" id="images-sort-1"></div>
       </div>
       
-      <div class="tier">
+      <div class="tier" id="tier-2">
         <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
         <input type="color" value="#e5e52e" class="color-picker" title="Pick a color!">
         <div class="tier-title" id="tier-title-2">B</div>
         <div class="images-sort" id="images-sort-2"></div>
       </div>
       
-      <div class="tier">
+      <div class="tier" id="tier-3">
         <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
         <input type="color" value="#71dc56" class="color-picker" title="Pick a color!">
         <div class="tier-title" id="tier-title-3">C</div>
         <div class="images-sort" id="images-sort-3"></div>
       </div>
       
-      <div class="tier">
+      <div class="tier" id="tier-4">
         <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
         <input type="color" value="#5eb1d4" class="color-picker" title="Pick a color!">
         <div class="tier-title" id="tier-title-4">D</div>
         <div class="images-sort" id="images-sort-4"></div>
       </div>
       
-      <div class="tier">
+      <div class="tier" id="tier-5">
         <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
         <input type="color" value="#d45eba" class="color-picker" title="Pick a color!">
         <div class="tier-title" id="tier-title-5">F</div>
@@ -115,8 +115,12 @@
     </div>
     
     <ul class="uploaded-images-list images-sort" id="images-list">
-      <div class="action solid" id="add-tier" title="Add a tier">
+      <div class="action solid" id="add-tier" title="Add a Tier">
         <span class="material-symbols-outlined">playlist_add</span>
+      </div>
+
+      <div class="action dashed" id="delete-tier" title="Delete a Tier (Drag & Drop)">
+        <span class="material-symbols-outlined">playlist_remove</span>
       </div>
       
       <label for="input-file" class="action dashed" id="add-image" title="Add image(s) (Drag & Drop / Click to browse)">
@@ -140,9 +144,9 @@
         <li>
           • <em>Hold click</em> on an uploaded image to zoom it and display its caption
         </li>
-        <li>
-        </li>
-        • <strike><em>Double click</em> on an uploaded image to crop it yourself or to edit its caption</strike> (soon!)
+        <!-- <li>
+          • <em>Double click</em> on an uploaded image to crop it yourself or to edit its caption
+        </li> -->
       </ul>
     </div>
   </footer>

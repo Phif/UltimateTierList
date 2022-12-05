@@ -62,13 +62,56 @@ $(function() {
     $(document).on("mouseup", ".tier-image", function() {
         $(this).css('transition-delay', '0s');
         $(this).css('transition', 'all ease-in-out 0.2s');
-        // $(this).css('transform', 'scale(' + 1 + ')');
         $(this).css('z-index', 1);
+    });
+    
+    $("#add-image").on({
+        dragover: function() {
+            $(this).css('border', '5px solid cornflowerblue');
+            $(this).css('color', 'cornflowerblue');
+        },
+        dragleave: function() {
+            $(this).css('border', '2px dashed grey');
+            $(this).css('color', 'black');
+        },
+        drop: function() {
+            $(this).css('border', '2px dashed grey');
+            $(this).css('color', 'black');
+        }
+    });
+    
+    $("#delete-image").on({
+        dragover: function() {
+            $(this).css('border', '5px solid crimson');
+            $(this).css('color', 'crimson');
+        },
+        dragleave: function() {
+            $(this).css('border', '2px dashed grey');
+            $(this).css('color', 'black');
+        },
+        drop: function() {
+            $(this).css('border', '2px dashed grey');
+            $(this).css('color', 'black');
+        }
+    });
+    
+    $("#delete-tier").on({
+        dragover: function() {
+            $(this).css('border', '5px solid grey');
+            $(this).css('color', 'grey');
+        },
+        dragleave: function() {
+            $(this).css('border', '2px dashed grey');
+            $(this).css('color', 'black');
+        },
+        drop: function() {
+            $(this).css('border', '2px dashed grey');
+            $(this).css('color', 'black');
+        }
     });
     //----------//
     
     //----- ADD IMAGES -----//
-    
     let tierImageId = 0; 
     document.querySelector("#input-file").addEventListener("change", (e) => { 
         if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -88,7 +131,7 @@ $(function() {
                     img.title = files[i].name;
                     ul.appendChild(li);
                     li.appendChild(img);
-                    li.addEventListener("dragstart", function(){
+                    li.addEventListener("dragstart", function() {
                         draggedElement = li;
                     })
                 });
@@ -104,18 +147,9 @@ $(function() {
     let deleteZone = document.querySelector("#delete-image");
     let draggedElement;
     
-    document.addEventListener("drop", function( event ) {
-        // Empêche l'action par défaut (ouvrir comme lien pour certains éléments)
-        event.preventDefault();
-    });
-    
     deleteZone.ondrop = function(){
-        event.preventDefault();
-        console.log('to')
         draggedElement.remove();
     };
-    
-    
     //----------//
     
     //----- TEXT EDIT -----//
@@ -133,7 +167,7 @@ $(function() {
         }
         
         tierTitlesArray.forEach(element => {
-            $(document).on("click", element, function(){
+            $(document).on("click", element, function() {
                 var current = $(this).text();
                 if (firstClick) {
                     $(element).html(`<textarea id="newcont" style="width:100px; height:90px;">${current}</textarea>`);
@@ -151,7 +185,7 @@ $(function() {
     }
     
     // Tier List title
-    $(document).on("click", "#tier-list-title", function(){
+    $(document).on("click", "#tier-list-title", function() {
         var current = $(this).text();
         $("#tier-list-title").html(`<input id="newcont" placeholder="${current}" style="width:100%"></input>`);
         $("#newcont").focus();
@@ -172,7 +206,7 @@ $(function() {
     function updateColorPickers() {
         colorPickers = document.querySelectorAll(".color-picker");
         colorPickers.forEach(element => {
-            element.addEventListener("input", function(){ 
+            element.addEventListener("input", function() { 
                 element.parentElement.style.backgroundColor = event.target.value;
             });
         });
@@ -187,6 +221,13 @@ $(function() {
     for (let i = 0; i < defaultTierColors.length; i++) {
         document.querySelector(`#tier-title-${i}`).parentElement.style.backgroundColor = defaultTierColors[i];
     }
+    
+    let tiers = document.querySelectorAll(".tier");
+    tiers.forEach(element => {
+        element.addEventListener("dragstart", function() {
+            draggedElement = element;
+        })
+    });
     
     let buttonAddTier = document.querySelector("#add-tier");
     buttonAddTier.addEventListener("click", function() {
@@ -223,12 +264,21 @@ $(function() {
         divTier.appendChild(divTierTitle);
         divTier.appendChild(divTierImages);
         
+        divTier.addEventListener("dragstart", function() {
+            draggedElement = divTier;
+        })
+
         updateColorPickers();
         updateTierTitles();
         updateSortables();
     });
     
+    //----- DELETE ONE TIER -----//
+    let deleteTierZone = document.querySelector("#delete-tier");
     
+    deleteTierZone.ondrop = function(){
+        draggedElement.remove();
+    };
     
     
 });
