@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge; chrome=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   
   <title>Ultimate Tier List</title>
@@ -27,12 +27,12 @@
   <!-- Libraries -->
   <script src="./js/jquery-3.6.1.min.js"></script>
   <script src="./js/jquery-ui.min.js"></script>
-  <script src="./node_modules/sortablejs/modular/sortable.complete.esm.js"></script>
+  <script src="./node_modules/sortablejs/Sortable.min.js"></script>
   <!-- <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script> -->
   
   <!-- JS -->
   <script type="module" src="./js/main.js"></script>
-
+  
   <!-- HTML -->
   <header>
     <img src="images/favicon.png" id="yoyo">
@@ -113,17 +113,21 @@
     </div>
     
     <ul class="uploaded-images-list images-sort" id="images-list">
-      <label for="input-file" id="add-image" title="Add image(s) (Drag & Drop / Click to browse)">
-        <span class="material-symbols-outlined">add_photo_alternate</span>
-        <input type="file" accept="image/*" name="image" id="input-file" multiple>
-      </label>
-
-      <label for="delete-image" id="delete-image" title="Delete an image (Drag & Drop)">
-        <span class="material-symbols-outlined">hide_image</span>
-      </label>
+      <li>      
+        <label for="input-file" id="add-image" title="Add image(s) (Drag & Drop / Click to browse)">
+          <span class="material-symbols-outlined">add_photo_alternate</span>
+          <input type="file" accept="image/*" name="image" id="input-file" multiple>
+        </label>
+      </li>
+      
+      <li>
+        <div id="delete-image" title="Delete an image (Drag & Drop)">
+          <span class="material-symbols-outlined">hide_image</span>
+        </div>
+      </li>
     </ul>
   </main>
-
+  
   <footer>
     <div class="footer-container">
       Commands:
