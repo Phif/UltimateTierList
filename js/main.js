@@ -109,6 +109,7 @@ $(function() {
     
     //----- ADD IMAGES -----//
     let tierImageId = 0; 
+    
     document.querySelector("#input-file").addEventListener("change", (e) => { 
         if (window.File && window.FileReader && window.FileList && window.Blob) {
             const files = e.target.files; 

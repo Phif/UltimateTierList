@@ -21,6 +21,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0" />
+  <link rel="stylesheet" href="./node_modules/cropperjs/dist/cropper.min.css" />
+  
   
   <!-- Libraries -->
   <script src="./js/jquery-3.6.1.min.js"></script>
@@ -28,6 +30,8 @@
   <script src="./node_modules/sortablejs/Sortable.min.js"></script>
   <script src="./js/html2canvas.js"></script> <!-- Edited with object-fit fix -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+  <script src="./node_modules/cropperjs/dist/cropper.min.js"></script>
+
   <!-- <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script> -->
   
   <!-- JS -->
@@ -35,7 +39,6 @@
 </head>
 
 <body>
-  
   <!-- HTML -->
   <header>
     <img src="images/favicon.png">
@@ -52,6 +55,13 @@
       </button>
     </div>
   </header>
+
+  <div class="container">
+    <div>
+      <img src="images/tierlist/5v8d025ktwi81.png" id="image">
+    </div>
+  </div>
+
   <main>
     <div id="to-download">
       <h2 id="tier-list-title" title="Click to edit">My Tier List</h2>
