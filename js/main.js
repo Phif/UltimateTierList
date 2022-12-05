@@ -1,4 +1,4 @@
-import Sortable from '/node_modules/sortablejs/modular/sortable.complete.esm.js';
+// import Sortable from '/node_modules/sortablejs/modular/sortable.complete.esm.js';
 
 $(function() {
     //----- SORTABLE -----//
