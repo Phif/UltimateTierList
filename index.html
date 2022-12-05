@@ -20,13 +20,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0" />
   
   <!-- Libraries -->
   <script src="./js/jquery-3.6.1.min.js"></script>
   <script src="./js/jquery-ui.min.js"></script>
   <script src="./node_modules/sortablejs/Sortable.min.js"></script>
-  <!-- <script src="./node_modules/html-to-image/dist/html-to-image.js"></script> -->
+  <script src="./js/html2canvas.js"></script> <!-- Edited with object-fit fix -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
   <!-- <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script> -->
   
   <!-- JS -->
@@ -37,77 +38,69 @@
   
   <!-- HTML -->
   <header>
-    
-    <img src="images/favicon.png" id="yoyo">
+    <img src="images/favicon.png">
     <h1>ULTIMATE TIER LIST MAKER</h1>
     <div class="options">
-      <button title="Delete all images">
+      <button id="delete-all-images" title="Delete all images">
         <span class="material-symbols-outlined">delete</span>
       </button>
-      <button title="Save Tier List">
-        <span class="material-symbols-outlined">save</span>
+      <button id="download-tier-list" title="Download Tier List as JPG">
+        <span class="material-symbols-outlined">download</span>
       </button>
-      <button title="Share Tier List">
+      <button id="share-tier-list" title="Share Tier List">
         <span class="material-symbols-outlined">share</span>
       </button>
     </div>
   </header>
   <main>
-    <h2 id="tier-list-title">Click to edit your Tier List's title</h2>
-    <div id="tier-list">
-      
-      <div class="tier" id="tier-0">
-        <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
-        <input type="color" value="#cc0044" class="color-picker" title="Pick a color!">
-        <div class="tier-title" id="tier-title-0">S</div>
-        <div class="images-sort" id="images-sort-0"></div>
-      </div>
-      
-      <div class="tier" id="tier-1">
-        <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
-        <input type="color" value="#ff7f00" class="color-picker" title="Pick a color!">
-        <div class="tier-title" id="tier-title-1">A</div>
-        <div class="images-sort" id="images-sort-1"></div>
-      </div>
-      
-      <div class="tier" id="tier-2">
-        <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
-        <input type="color" value="#e5e52e" class="color-picker" title="Pick a color!">
-        <div class="tier-title" id="tier-title-2">B</div>
-        <div class="images-sort" id="images-sort-2"></div>
-      </div>
-      
-      <div class="tier" id="tier-3">
-        <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
-        <input type="color" value="#71dc56" class="color-picker" title="Pick a color!">
-        <div class="tier-title" id="tier-title-3">C</div>
-        <div class="images-sort" id="images-sort-3"></div>
-      </div>
-      
-      <div class="tier" id="tier-4">
-        <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
-        <input type="color" value="#5eb1d4" class="color-picker" title="Pick a color!">
-        <div class="tier-title" id="tier-title-4">D</div>
-        <div class="images-sort" id="images-sort-4"></div>
-      </div>
-      
-      <div class="tier" id="tier-5">
-        <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
-        <input type="color" value="#d45eba" class="color-picker" title="Pick a color!">
-        <div class="tier-title" id="tier-title-5">F</div>
-        <div class="images-sort" id="images-sort-5">
-          <!-- <li class="tier-image" id="yoyo1">
-            <img src="images\tierlist\1920x1080-414922-anime-anime-girls-Nier-Automata-2B-Nier-Automata.jpg" title="nier automata" >
-          </li>
-          <li class="tier-image" id="yoyo2">
-            <img src="images\tierlist\1920x1080-414922-anime-anime-girls-Nier-Automata-2B-Nier-Automata.jpg" title="nier automata" >
-          </li>
-          <li class="tier-image" id="yoyo3">
-            <img src="images\tierlist\1920x1080-414922-anime-anime-girls-Nier-Automata-2B-Nier-Automata.jpg" title="nier automata">
-          </li>
-          <li class="tier-image" id="yoyo4">
-            <img src="images\tierlist\1920x1080-414922-anime-anime-girls-Nier-Automata-2B-Nier-Automata.jpg" title="nier automata">
-          </li> -->
+    <div id="to-download">
+      <h2 id="tier-list-title">Click to edit your Tier List's title</h2>
+      <div id="tier-list">
+        
+        <div class="tier" id="tier-0">
+          <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
+          <input type="color" value="#dc143c" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
+          <div class="tier-title" id="tier-title-0">S</div>
+          <div class="images-sort" id="images-sort-0"></div>
+        </div>
+        
+        <div class="tier" id="tier-1">
+          <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
+          <input type="color" value="#ff8c00" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
+          <div class="tier-title" id="tier-title-1">A</div>
+          <div class="images-sort" id="images-sort-1"></div>
+        </div>
+        
+        <div class="tier" id="tier-2">
+          <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
+          <input type="color" value="#ffd700" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
+          <div class="tier-title" id="tier-title-2">B</div>
+          <div class="images-sort" id="images-sort-2"></div>
+        </div>
+        
+        <div class="tier" id="tier-3">
+          <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
+          <input type="color" value="#00ff00" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
+          <div class="tier-title" id="tier-title-3">C</div>
+          <div class="images-sort" id="images-sort-3"></div>
+        </div>
+        
+        <div class="tier" id="tier-4">
+          <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
+          <input type="color" value="#48d1cc" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
+          <div class="tier-title" id="tier-title-4">D</div>
+          <div class="images-sort" id="images-sort-4"></div>
+        </div>
+        
+        <div class="tier" id="tier-5">
+          <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
+          <input type="color" value="#da70d6" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
+          <div class="tier-title" id="tier-title-5">F</div>
+          <div class="images-sort" id="images-sort-5">
+            <!-- <li class="tier-image" id="yoyo1">
+              <img src="images\tierlist\1920x1080-414922-anime-anime-girls-Nier-Automata-2B-Nier-Automata.jpg" title="nier automata" >
+            </li> -->
+          </div>
         </div>
       </div>
     </div>
@@ -118,14 +111,14 @@
       <div class="action solid" id="add-tier" title="Add a Tier">
         <span class="material-symbols-outlined">playlist_add</span>
       </div>
-
+      
       <div class="action solid" id="add-image"  title="Add image(s) (Drag & Drop / Click to browse)">
         <label for="input-file">
           <span class="material-symbols-outlined">add_photo_alternate</span>
           <input type="file" accept="image/*" name="image" id="input-file" multiple>
         </label>
       </div>
-    
+      
       <div class="action dashed" id="delete-zone" title="Delete a Tier or an image (Drop here)">
         <span class="material-symbols-outlined">delete</span>
       </div>

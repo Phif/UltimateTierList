@@ -66,8 +66,8 @@ $(function() {
     
     $("#add-image").on({
         dragover: function() {
-            $(this).css('border', '5px solid cornflowerblue');
-            $(this).css('color', 'cornflowerblue');
+            $(this).css('border', '5px solid mediumturquoise');
+            $(this).css('color', 'mediumturquoise');
         },
         dragleave: function() {
             $(this).css('border', '2px dashed grey');
@@ -136,6 +136,19 @@ $(function() {
     };
     //----------//
     
+    //----- DELETE ALL IMAGES -----//
+    const deleteAllTierImages = document.querySelector("#delete-all-images");
+    deleteAllTierImages.addEventListener("click", function() { 
+        if (confirm("This will delete ALL the images that you uploaded. Are you sure?")) {
+            let allTierImages = document.querySelectorAll(".tier-image");
+            allTierImages.forEach(element => {     
+                element.remove();
+            });
+        }
+    });
+
+    //----------//
+    
     //----- TEXT EDIT -----//
     // Tier title
     let tierTitles = document.querySelectorAll(".tier-title");
@@ -169,16 +182,17 @@ $(function() {
     }
     
     // Tier List title
+    var tierListName = "My-TierList";
     $(document).on("click", "#tier-list-title", function() {
         var current = $(this).text();
         $("#tier-list-title").html(`<input id="newcont" placeholder="${current}" style="width:100%"></input>`);
         $("#newcont").focus();
         $("#newcont").focus().blur(function() {
-            var newcont = $("#newcont").val();
-            if (newcont == "") {
+            tierListName = $("#newcont").val();
+            if (tierListName == "") {
                 $("#tier-list-title").text("Click to edit your Tier List's title");
             } else {
-                $("#tier-list-title").text(newcont);
+                $("#tier-list-title").text(tierListName);
             }
         });
     })
@@ -201,7 +215,7 @@ $(function() {
     let divTierNumber = 5;
     
     // Default colors
-    let defaultTierColors = ["#cc0044", "#ff7f00", "#e5e52e", "#71dc56", "#5eb1d4", "#d45eba"];
+    let defaultTierColors = ["crimson", "darkorange", "gold", "lime", "mediumturquoise", "orchid"];
     for (let i = 0; i < defaultTierColors.length; i++) {
         document.querySelector(`#tier-title-${i}`).parentElement.style.backgroundColor = defaultTierColors[i];
     }
@@ -225,6 +239,7 @@ $(function() {
         
         let spanIcon = document.createElement("span");
         spanIcon.setAttribute("class", "material-symbols-outlined handle");
+        spanIcon.setAttribute("data-html2canvas-ignore", "");
         spanIcon.innerText = "drag_indicator";
         
         let inputColorPicker = document.createElement("input");
@@ -232,6 +247,7 @@ $(function() {
         inputColorPicker.setAttribute("value", "#ffffff");
         inputColorPicker.setAttribute("class", "color-picker");
         inputColorPicker.setAttribute("title", "Pick a color!");
+        inputColorPicker.setAttribute("data-html2canvas-ignore", "");
         
         let divTierTitle = document.createElement("div");
         divTierTitle.setAttribute("class", "tier-title");
@@ -253,11 +269,19 @@ $(function() {
         divTier.addEventListener("dragstart", function() {
             draggedElement = divTier;
         })
-
+        
         updateColorPickers();
         updateTierTitles();
         updateSortables();
     });
     //----------//
-
+    
+    //----- DOWNLOAD TIER LIST -----//
+    $( "#download-tier-list" ).on( "click", function() {
+        html2canvas(document.querySelector("#to-download")).then(canvas => {
+            canvas.toBlob(function(blob) {
+                window.saveAs(blob, `${tierListName}.jpg`);
+            });
+        });
+    });
 });
