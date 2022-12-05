@@ -77,7 +77,7 @@ main {
   padding: 5px;
   border-radius: 10px;
   background-color: lightgrey;
-  transition: all ease-in-out 0.2s;
+  /* transition: all ease-in-out 0.2s; */
 }
 
 .tier-options {
@@ -155,12 +155,12 @@ main {
   gap: 5px;
 }
 
-.tier-images {
+.tier-image {
   height: 100px;
   width: 100px;
 }
 
-.tier-images img {
+.tier-image img {
   object-fit: cover;
   object-position: center; 
   border-radius: 10px;
@@ -245,7 +245,6 @@ main {
 footer {
   background-color: #222222;
   color: white;
-  /* height: 200px; */
   width: 100%;
   padding: 20px 0;
 }
@@ -274,3 +273,15 @@ footer em {
 .ui-tooltip {
   word-wrap: break-word;
 }
+
+/* .caption {
+  position: relative;
+  font-size: 0.5em;
+  color: white;
+  background-color: rgba(0, 0, 0, 1);
+  padding: 5px;
+  border-radius: 10px;
+  top: -3px;
+  opacity: 0;
+  transition: all 0.2s ease-in-out 0.2s;
+} */

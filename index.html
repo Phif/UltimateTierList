@@ -32,7 +32,7 @@
 
 <body>
   <header>
-    <img src="images/favicon.png">
+    <img src="images/favicon.png" id="yoyo">
     <h1>ULTIMATE TIER LIST MAKER</h1>
     <div class="options">
       <a href="#" class="button" title="Delete ALL images">
@@ -89,11 +89,24 @@
         <span class="material-symbols-outlined handle" title="Drag me!">drag_indicator</span>
         <input type="color" value="#d45eba" class="color-picker" title="Pick a color!">
         <div class="tier-title" id="tier-title-5">F</div>
-        <div class="images-sort" id="images-sort-5"></div>
+        <div class="images-sort" id="images-sort-5">
+          <!-- <li class="tier-image" id="yoyo1">
+            <img src="images\tierlist\1920x1080-414922-anime-anime-girls-Nier-Automata-2B-Nier-Automata.jpg" title="nier automata" >
+          </li>
+          <li class="tier-image" id="yoyo2">
+            <img src="images\tierlist\1920x1080-414922-anime-anime-girls-Nier-Automata-2B-Nier-Automata.jpg" title="nier automata" >
+          </li>
+          <li class="tier-image" id="yoyo3">
+            <img src="images\tierlist\1920x1080-414922-anime-anime-girls-Nier-Automata-2B-Nier-Automata.jpg" title="nier automata">
+          </li>
+          <li class="tier-image" id="yoyo4">
+            <img src="images\tierlist\1920x1080-414922-anime-anime-girls-Nier-Automata-2B-Nier-Automata.jpg" title="nier automata">
+          </li> -->
+        </div>
       </div>
     </div>
     <div class="button" id="add-tier" title="Add a tier">
-      <span class="material-symbols-outlined">add_circle</span>
+      <span class="material-symbols-outlined">playlist_add</span>
     </div>
     
     <ul class="uploaded-images-list images-sort" id="images-list">
@@ -101,11 +114,13 @@
         <span class="material-symbols-outlined">add_photo_alternate</span>
         <input type="file" accept="image/*" name="image" id="input-file" multiple>
       </label>
+
       <label for="delete-image" id="delete-image" title="Delete an image (Drag & Drop)">
         <span class="material-symbols-outlined">hide_image</span>
       </label>
     </ul>
   </main>
+
   <footer>
     <div class="footer-container">
       Commands:

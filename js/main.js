@@ -7,7 +7,7 @@ $(function() {
     new Sortable(el, {
         animation: 200,
         swapThreshold: 1,
-        handle: ".handle"
+        handle: ".handle",
     });
     
     let imageSortable = document.querySelectorAll(".images-sort");
@@ -29,6 +29,7 @@ $(function() {
                 group: 'list'
             });
         });
+        
     }
     
     //----------//
@@ -49,11 +50,11 @@ $(function() {
     
     
     //----- MOUSE EVENTS -----//
-    $(document).on("mouseleave", ".tier-images", function() {
-        $(this).css('z-index', 0);
+    $(document).on("mouseleave", ".tier-image", function() {
+        $(this).css('z-index', 1);
     });
     
-    $(document).on("mousedown", ".tier-images", function() {
+    $(document).on("mousedown", ".tier-image", function() {
         $(this).css('transition', 'transform ease-in-out 0.2s');
         $(this).css('transition-delay', '0.2s');
         $(this).css('transition-property', 'transform');
@@ -61,15 +62,17 @@ $(function() {
         $(this).css('z-index', 2);
     });
     
-    $(document).on("mouseup", ".tier-images", function() {
+    $(document).on("mouseup", ".tier-image", function() {
         $(this).css('transition-delay', '0s');
         $(this).css('transition', 'all ease-in-out 0.2s');
         // $(this).css('transform', 'scale(' + 1 + ')');
-        $(this).css('z-index', 0);
+        $(this).css('z-index', 1);
     });
     //----------//
     
     //----- ADD IMAGES -----//
+
+    let tierImageId = 0; 
     document.querySelector("#input-file").addEventListener("change", (e) => { 
         if (window.File && window.FileReader && window.FileList && window.Blob) {
             const files = e.target.files; 
@@ -80,13 +83,17 @@ $(function() {
                 reader.addEventListener("load", function (event) {
                     const addedFile = event.target;
                     const li = document.createElement("li");
-                    li.setAttribute("class", "tier-images");
-                    li.setAttribute("ondragstart", "drag(event)");
+                    li.setAttribute("class", "tier-image");
+                    li.setAttribute("id", `tier-image-${tierImageId}`);
+                    tierImageId += 1;
                     const img = document.createElement("img");
                     img.src = addedFile.result;
                     img.title = files[i].name;
                     ul.appendChild(li);
                     li.appendChild(img);
+                    li.addEventListener("dragstart", function(){
+                        draggedElement = li;
+                    })
                 });
                 reader.readAsDataURL(files[i]);
             }
@@ -96,6 +103,14 @@ $(function() {
     });
     //----------//
     
+    //----- DELETE ONE IMAGE -----//
+    let deleteZone = document.querySelector("#delete-image");
+    let draggedElement;
+    
+    deleteZone.ondrop = function(){
+        draggedElement.remove();
+    };
+    //----------//
     
     //----- DOUBLE CLICK TO EDIT -----//
     // Tier title
@@ -178,6 +193,7 @@ $(function() {
         inputColorPicker.setAttribute("type", "color");
         inputColorPicker.setAttribute("value", "#ffffff");
         inputColorPicker.setAttribute("class", "color-picker");
+        inputColorPicker.setAttribute("title", "Pick a color!");
         
         let divTierTitle = document.createElement("div");
         divTierTitle.setAttribute("class", "tier-title");
@@ -201,17 +217,7 @@ $(function() {
         updateSortables();
     });
     
-    /* REMOVE IMAGE */
-    function allowDrop(ev)
-    {
-        ev.preventDefault();
-    }
-    function drop(ev)
-    {
-        ev.preventDefault();
-        var data=ev.dataTransfer.getData("Text");
-        var el = document.getElementById(data);
-        el.parentNode.removeChild(el);
-    }
+    
+    
+    
 });
-
