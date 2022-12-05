@@ -199,20 +199,22 @@ main {
   transition: font-size linear 0.2s;
 }
 
-.action:hover span {
+#add-tier:hover span {
+  font-size: 60px !important;
+}
+
+#add-image:hover span {
   font-size: 60px !important;
 }
 
 #add-tier:hover {
   border: 5px solid grey;
-  cursor: pointer;
   color: grey;
+  cursor: pointer;
 }
 
 #delete-tier:hover {
-  border: 5px solid grey;
-  cursor: pointer;
-  color: grey;
+  cursor: default;
 }
 
 #add-image:hover {
@@ -222,8 +224,6 @@ main {
 }
 
 #delete-image:hover {
-  border: 5px solid crimson;
-  color: crimson;
   cursor: default;
 }
 
@@ -235,6 +235,7 @@ main {
   width: 100%;
   height: 100%;
   display: block;
+  cursor: pointer;
 }
 
 /* FOOTER */

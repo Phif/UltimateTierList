@@ -28,7 +28,6 @@ $(function() {
         });
         
     }
-    
     //----------//
     
     
@@ -80,25 +79,10 @@ $(function() {
         }
     });
     
-    $("#delete-image").on({
+    $("#delete-zone").on({
         dragover: function() {
             $(this).css('border', '5px solid crimson');
             $(this).css('color', 'crimson');
-        },
-        dragleave: function() {
-            $(this).css('border', '2px dashed grey');
-            $(this).css('color', 'black');
-        },
-        drop: function() {
-            $(this).css('border', '2px dashed grey');
-            $(this).css('color', 'black');
-        }
-    });
-    
-    $("#delete-tier").on({
-        dragover: function() {
-            $(this).css('border', '5px solid grey');
-            $(this).css('color', 'grey');
         },
         dragleave: function() {
             $(this).css('border', '2px dashed grey');
@@ -143,8 +127,8 @@ $(function() {
     });
     //----------//
     
-    //----- DELETE ONE IMAGE -----//
-    let deleteZone = document.querySelector("#delete-image");
+    //----- DELETE ONE TIER / IMAGE -----//
+    let deleteZone = document.querySelector("#delete-zone");
     let draggedElement;
     
     deleteZone.ondrop = function(){
@@ -222,6 +206,7 @@ $(function() {
         document.querySelector(`#tier-title-${i}`).parentElement.style.backgroundColor = defaultTierColors[i];
     }
     
+    // Get dragged element ID
     let tiers = document.querySelectorAll(".tier");
     tiers.forEach(element => {
         element.addEventListener("dragstart", function() {
@@ -229,6 +214,7 @@ $(function() {
         })
     });
     
+    // Add a Tier
     let buttonAddTier = document.querySelector("#add-tier");
     buttonAddTier.addEventListener("click", function() {
         divTierNumber += 1;
@@ -272,13 +258,6 @@ $(function() {
         updateTierTitles();
         updateSortables();
     });
-    
-    //----- DELETE ONE TIER -----//
-    let deleteTierZone = document.querySelector("#delete-tier");
-    
-    deleteTierZone.ondrop = function(){
-        draggedElement.remove();
-    };
-    
-    
+    //----------//
+
 });
