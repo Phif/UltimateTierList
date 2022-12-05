@@ -68,7 +68,7 @@ $(function() {
     //----------//
     
     //----- ADD IMAGES -----//
-
+    
     let tierImageId = 0; 
     document.querySelector("#input-file").addEventListener("change", (e) => { 
         if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -103,7 +103,7 @@ $(function() {
     //----- DELETE ONE IMAGE -----//
     let deleteZone = document.querySelector("#delete-image");
     let draggedElement;
-
+    
     document.addEventListener("drop", function( event ) {
         // Empêche l'action par défaut (ouvrir comme lien pour certains éléments)
         event.preventDefault();
@@ -114,8 +114,8 @@ $(function() {
         console.log('to')
         draggedElement.remove();
     };
-
-
+    
+    
     //----------//
     
     //----- TEXT EDIT -----//
