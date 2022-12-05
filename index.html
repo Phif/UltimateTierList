@@ -39,7 +39,7 @@
   <!-- HTML -->
   <header>
     <img src="images/favicon.png">
-    <h1>ULTIMATE TIER LIST MAKER</h1>
+    <h1>ULTIMATE TIER LIST  </h1>
     <div class="options">
       <button id="delete-all-images" title="Delete all images">
         <span class="material-symbols-outlined">delete</span>
@@ -47,55 +47,55 @@
       <button id="download-tier-list" title="Download Tier List as JPG">
         <span class="material-symbols-outlined">download</span>
       </button>
-      <button id="share-tier-list" title="Share Tier List">
+      <button id="share-tier-list" title="Share Tier List (Coming soon!)">
         <span class="material-symbols-outlined">share</span>
       </button>
     </div>
   </header>
   <main>
     <div id="to-download">
-      <h2 id="tier-list-title">Click to edit your Tier List's title</h2>
+      <h2 id="tier-list-title" title="Click to edit">My Tier List</h2>
       <div id="tier-list">
         
         <div class="tier" id="tier-0">
           <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
           <input type="color" value="#dc143c" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
-          <div class="tier-title" id="tier-title-0">S</div>
+          <div class="tier-title" id="tier-title-0" title="Click to edit">S</div>
           <div class="images-sort" id="images-sort-0"></div>
         </div>
         
         <div class="tier" id="tier-1">
           <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
           <input type="color" value="#ff8c00" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
-          <div class="tier-title" id="tier-title-1">A</div>
+          <div class="tier-title" id="tier-title-1" title="Click to edit">A</div>
           <div class="images-sort" id="images-sort-1"></div>
         </div>
         
         <div class="tier" id="tier-2">
           <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
           <input type="color" value="#ffd700" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
-          <div class="tier-title" id="tier-title-2">B</div>
+          <div class="tier-title" id="tier-title-2" title="Click to edit">B</div>
           <div class="images-sort" id="images-sort-2"></div>
         </div>
         
         <div class="tier" id="tier-3">
           <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
           <input type="color" value="#00ff00" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
-          <div class="tier-title" id="tier-title-3">C</div>
+          <div class="tier-title" id="tier-title-3" title="Click to edit">C</div>
           <div class="images-sort" id="images-sort-3"></div>
         </div>
         
         <div class="tier" id="tier-4">
           <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
           <input type="color" value="#48d1cc" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
-          <div class="tier-title" id="tier-title-4">D</div>
+          <div class="tier-title" id="tier-title-4" title="Click to edit">D</div>
           <div class="images-sort" id="images-sort-4"></div>
         </div>
         
         <div class="tier" id="tier-5">
           <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
           <input type="color" value="#da70d6" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
-          <div class="tier-title" id="tier-title-5">F</div>
+          <div class="tier-title" id="tier-title-5" title="Click to edit">F</div>
           <div class="images-sort" id="images-sort-5">
             <!-- <li class="tier-image" id="yoyo1">
               <img src="images\tierlist\1920x1080-414922-anime-anime-girls-Nier-Automata-2B-Nier-Automata.jpg" title="nier automata" >
@@ -133,7 +133,10 @@
           • <em>Click</em> on the Tier List's title or a Tier's name to edit it
         </li>
         <li>
-          • <em>Hold click</em> on an uploaded image to zoom it and display its caption
+          • <em>Hover</em> over an uploaded image to display its caption (default caption is the uploaded file name)
+        </li>
+        <li>
+          • <em>Hold click</em> on an uploaded image to zoom it
         </li>
         <!-- <li>
           • <em>Double click</em> on an uploaded image to crop it yourself or to edit its caption

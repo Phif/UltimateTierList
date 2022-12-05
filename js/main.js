@@ -65,21 +65,33 @@ $(function() {
     });
     
     $("#add-image").on({
+        mouseenter: function() {
+            $(this).css('border', '5px solid mediumturquoise');
+            $(this).css('color', 'mediumturquoise');
+        },
+        mouseleave: function() {
+            $(this).css('border', '0px solid transparent');
+            $(this).css('color', 'black');
+        },
         dragover: function() {
             $(this).css('border', '5px solid mediumturquoise');
             $(this).css('color', 'mediumturquoise');
         },
         dragleave: function() {
-            $(this).css('border', '2px dashed grey');
+            $(this).css('border', '0px solid transparent');
             $(this).css('color', 'black');
         },
         drop: function() {
-            $(this).css('border', '2px dashed grey');
+            $(this).css('border', '0px solid transparent');
             $(this).css('color', 'black');
         }
     });
     
     $("#delete-zone").on({
+        mouseleave: function() {
+            $(this).css('border', '2px dashed grey');
+            $(this).css('color', 'black');
+        },
         dragover: function() {
             $(this).css('border', '5px solid crimson');
             $(this).css('color', 'crimson');
@@ -146,10 +158,26 @@ $(function() {
             });
         }
     });
-
+    
     //----------//
     
     //----- TEXT EDIT -----//
+    // Tier List title
+    var tierListName = "My-TierList";
+    $(document).on("click", "#tier-list-title", function() {
+        var current = $(this).text();
+        $("#tier-list-title").html(`<input id="newcont" placeholder="${current}" style="width:100%"></input>`);
+        $("#newcont").focus();
+        $("#newcont").focus().blur(function() {
+            tierListName = $("#newcont").val();
+            if (tierListName == "") {
+                $("#tier-list-title").text("My Tier List");
+            } else {
+                $("#tier-list-title").text(tierListName);
+            }
+        });
+    })
+    
     // Tier title
     let tierTitles = document.querySelectorAll(".tier-title");
     let tierTitlesArray = new Array;
@@ -180,22 +208,6 @@ $(function() {
             })
         });
     }
-    
-    // Tier List title
-    var tierListName = "My-TierList";
-    $(document).on("click", "#tier-list-title", function() {
-        var current = $(this).text();
-        $("#tier-list-title").html(`<input id="newcont" placeholder="${current}" style="width:100%"></input>`);
-        $("#newcont").focus();
-        $("#newcont").focus().blur(function() {
-            tierListName = $("#newcont").val();
-            if (tierListName == "") {
-                $("#tier-list-title").text("Click to edit your Tier List's title");
-            } else {
-                $("#tier-list-title").text(tierListName);
-            }
-        });
-    })
     //----------//
     
     /* COLOR PICKER */
@@ -236,6 +248,7 @@ $(function() {
         divTier.setAttribute("class", "tier");
         divTier.setAttribute("id", `tier-${divTierNumber}`);
         divTier.setAttribute("style", "background-color : #ccc;");
+        divTier.setAttribute("title", "Click to edit");
         
         let spanIcon = document.createElement("span");
         spanIcon.setAttribute("class", "material-symbols-outlined handle");
@@ -276,7 +289,7 @@ $(function() {
     });
     //----------//
     
-    //----- DOWNLOAD TIER LIST -----//
+    //----- DOWNLOAD TIER LIST AS JPG -----//
     $( "#download-tier-list" ).on( "click", function() {
         html2canvas(document.querySelector("#to-download")).then(canvas => {
             canvas.toBlob(function(blob) {
@@ -284,4 +297,6 @@ $(function() {
             });
         });
     });
+    //----------//
+    
 });

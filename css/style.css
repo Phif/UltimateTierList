@@ -199,7 +199,7 @@ main {
 }
 
 .action.solid {
-  border: 0px solid grey;
+  border: 0px solid transparent;
 }
 
 .action.dashed {
@@ -209,14 +209,6 @@ main {
 .action span {
   font-size: 48px !important;
   transition: font-size linear 0.2s;
-}
-
-#add-tier:hover span {
-  font-size: 60px !important;
-}
-
-#add-image:hover span {
-  font-size: 60px !important;
 }
 
 #add-tier:hover {
@@ -259,7 +251,7 @@ footer {
   max-width: 1140px;
   padding: 0 10px;
   margin: auto;
-  font-size: 1.5em;
+  font-size: 1em;
 }
 
 footer p {
