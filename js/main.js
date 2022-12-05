@@ -103,10 +103,19 @@ $(function() {
     //----- DELETE ONE IMAGE -----//
     let deleteZone = document.querySelector("#delete-image");
     let draggedElement;
+
+    document.addEventListener("drop", function( event ) {
+        // Empêche l'action par défaut (ouvrir comme lien pour certains éléments)
+        event.preventDefault();
+    });
     
     deleteZone.ondrop = function(){
+        event.preventDefault();
+        console.log('to')
         draggedElement.remove();
     };
+
+
     //----------//
     
     //----- DOUBLE CLICK TO EDIT -----//
