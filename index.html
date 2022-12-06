@@ -42,13 +42,15 @@
 <body>
   <!-- CROPPER -->
   <div id="crop-container">
-    <div id="image-container">
+    <div id="crop-image-container">
       <img id="crop-image">
     </div>
-    <button id="button-crop-image">Crop Image</button>
-    <button id="button-crop-cancel">Cancel</button>
-    <h2 id="tier-image-title" title="Click to edit"></h2>
-    <img id="crop-image-thumbnail">
+    <div id="crop-options">
+      <button id="button-crop-image">Crop Image</button>
+      <button id="button-crop-cancel">Cancel</button>
+      <h2 id="tier-image-title" title="Click to edit"></h2>
+      <img id="crop-image-thumbnail">
+    </div>
   </div>
 
   <!-- HTML -->
@@ -140,9 +142,9 @@
         <span class="material-symbols-outlined">delete</span>
       </div>
       
-      <div class="action dashed" id="edit-zone" title="Edit an image (Drop here)">
+      <!-- <div class="action dashed" id="edit-zone" title="Edit an image (Drop here)">
         <span class="material-symbols-outlined">edit</span>
-      </div>
+      </div> -->
     </ul>
     
   </main>
@@ -160,9 +162,9 @@
         <li>
           • <em>Hold click</em> on an uploaded image to zoom it
         </li>
-        <!-- <li>
-          • <em>Double click</em> on an uploaded image to crop it yourself or to edit its caption
-        </li> -->
+        <li>
+          • <em>Double click</em> on an uploaded image to crop it <!-- or to edit its caption -->
+        </li>
       </ul>
     </div>
   </footer>

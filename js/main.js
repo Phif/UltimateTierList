@@ -19,7 +19,7 @@ $(function() {
     
     // CROPPIE //
     var croppie = new Croppie(document.getElementById('crop-image'), {
-        showZoomer: false
+        showZoomer: true
     });
     
     document.getElementById("button-crop-image").addEventListener("click", function() {
