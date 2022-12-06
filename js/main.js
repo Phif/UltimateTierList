@@ -1,40 +1,42 @@
 
 
 $(function() {
-    // CROPPER //
-    // const image = document.getElementById("image");
-    // const cropper = new Cropper(image, {
-    //     aspectRatio: 1,
-    //     viewMode: 1,
-    //     dragMode: "none",
-    //     background: true,
-    //     minCropBoxWidth: 100,
-    //     minCropBoxHeight: 100,
-    //     zoomable: false
-    // });
-    // document.getElementById("button-crop-image").addEventListener("click", function(){
-    //     var croppedImage = cropper.getCroppedCanvas().toDataURL("image/*");
-    //     document.getElementById("output").src = croppedImage;
-    // });
-    
     // CROPPIE //
+    let cropThumbnail = document.getElementById("crop-image-thumbnail");
+
     var croppie = new Croppie(document.getElementById('crop-image'), {
         showZoomer: true
     });
     
     document.getElementById("button-crop-image").addEventListener("click", function() {
+        cropThumbnail.style.visibility = "visible";
+
         croppie.result({
             type: 'base64',
             size: {width: 200, height: 200},
         }).then((newSrc) => {
-            // document.querySelector("#my-image2").setAttribute("src", newSrc);
-            croppedElement.childNodes[0].setAttribute("src", newSrc);
-            document.getElementById("crop-container").style.visibility = "hidden";
+            cropThumbnail.setAttribute("src", newSrc); // Preview
         });
     });
     
-    document.getElementById("button-crop-cancel").addEventListener("click", function() {
+    document.getElementById("button-crop-confirm").addEventListener("click", function() {
         document.getElementById("crop-container").style.visibility = "hidden";
+        cropThumbnail.setAttribute("src", "");
+        cropThumbnail.style.visibility = "hidden";
+        
+        croppie.result({
+            type: 'base64',
+            size: {width: 200, height: 200},
+        }).then((newSrc) => {
+            croppedElement.childNodes[0].setAttribute("src", newSrc);
+        });
+    });
+    
+    
+    document.getElementById("button-crop-cancel").addEventListener("click", function() {
+        croppedElement.childNodes[0].setAttribute("src", cropThumbnail.src);
+        document.getElementById("crop-container").style.visibility = "hidden";
+        cropThumbnail.style.visibility = "hidden";
     });
     
     
@@ -150,7 +152,7 @@ $(function() {
     let divTierNumber = 5;
     
     // Default colors
-    let defaultTierColors = ["crimson", "darkorange", "gold", "lime", "mediumturquoise", "orchid"];
+    let defaultTierColors = ["#dc143c", "#ff8c00", "#ffd700", "#4bd74b", "#4bb4dc", "#da70d6"];
     for (let i = 0; i < defaultTierColors.length; i++) {
         document.querySelector(`#tier-title-${i}`).parentElement.style.backgroundColor = defaultTierColors[i];
     }
@@ -239,6 +241,7 @@ $(function() {
                     });
                     li.addEventListener("dblclick", function() {
                         croppedElement = li;
+                        cropThumbnail.setAttribute("src", croppedElement.childNodes[0].src);
                         croppedElement.childNodes[0].src = croppedElement.childNodes[0].getAttribute("originalsrc");
                         croppie.bind({
                             url : croppedElement.childNodes[0].src

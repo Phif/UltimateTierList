@@ -66,8 +66,6 @@ button:hover {
 }
 
 /* CROP */
-
-/* Cropper */
 #crop-container {
   display: flex;
   justify-content: space-evenly;
@@ -108,7 +106,36 @@ button:hover {
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
 
+.crop-button-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#button-crop-image {
+  color: white;
+  background-color: #4bb4dc;
+}
+
+#button-crop-confirm {
+  color: white;
+  background-color: #4bd74b;
+}
+
+#button-crop-cancel {
+  color: white;
+  background-color: #dc143c;
+}
+
+#crop-image-thumbnail {
+  object-fit: cover;
+  visibility: hidden;
+  width: 100px;
+  height: 100px;
 }
 /*
 #image {
