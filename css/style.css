@@ -65,6 +65,59 @@ button:hover {
   border: 2px solid transparent;
 }
 
+/* CROP */
+
+/* Cropper */
+#crop-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  gap: 10px;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  background-color: #111111;
+  visibility: hidden;
+}
+
+#image-container {
+  width: 50%;
+  height: 50%;
+  background-color: #222222;
+}
+
+#tier-image-title {
+  cursor: pointer;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+  transition: all ease-in-out 0.2s;
+  font-weight: bolder;
+  color: white;
+  margin: 0;
+}
+#tier-image-title:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+
+/*
+#image {
+  display: block;
+  max-width: 100%;
+}
+#button-crop-image {
+  width: 100px;
+  height: 50px;
+}
+#output {
+  width: 100px;
+  height: 100px;
+} */
+
+
 /* TIERLIST */
 main {
   max-width: 1140px;

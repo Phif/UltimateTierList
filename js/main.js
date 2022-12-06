@@ -1,4 +1,43 @@
+
+
 $(function() {
+    // CROPPER //
+    // const image = document.getElementById("image");
+    // const cropper = new Cropper(image, {
+    //     aspectRatio: 1,
+    //     viewMode: 1,
+    //     dragMode: "none",
+    //     background: true,
+    //     minCropBoxWidth: 100,
+    //     minCropBoxHeight: 100,
+    //     zoomable: false
+    // });
+    // document.getElementById("button-crop-image").addEventListener("click", function(){
+    //     var croppedImage = cropper.getCroppedCanvas().toDataURL("image/*");
+    //     document.getElementById("output").src = croppedImage;
+    // });
+    
+    // CROPPIE //
+    var croppie = new Croppie(document.getElementById('crop-image'), {
+        showZoomer: false
+    });
+    
+    document.getElementById("button-crop-image").addEventListener("click", function() {
+        croppie.result({
+            type: 'base64',
+            size: {width: 200, height: 200},
+        }).then((newSrc) => {
+            // document.querySelector("#my-image2").setAttribute("src", newSrc);
+            croppedElement.childNodes[0].setAttribute("src", newSrc);
+            document.getElementById("crop-container").style.visibility = "hidden";
+        });
+    });
+    
+    document.getElementById("button-crop-cancel").addEventListener("click", function() {
+        document.getElementById("crop-container").style.visibility = "hidden";
+    });
+    
+    
     //----- SORTABLE -----//
     var el = document.querySelector('#tier-list');
     new Sortable(el, {
@@ -107,9 +146,75 @@ $(function() {
     });
     //----------//
     
+    /* ADD NEW TIER */
+    let divTierNumber = 5;
+    
+    // Default colors
+    let defaultTierColors = ["crimson", "darkorange", "gold", "lime", "mediumturquoise", "orchid"];
+    for (let i = 0; i < defaultTierColors.length; i++) {
+        document.querySelector(`#tier-title-${i}`).parentElement.style.backgroundColor = defaultTierColors[i];
+    }
+    
+    // Get dragged tier ID
+    let tiers = document.querySelectorAll(".tier");
+    tiers.forEach(element => {
+        element.childNodes[1].addEventListener("mousedown", function() {
+            draggedElement = element;
+        })
+    });
+    
+    // Add a Tier
+    let buttonAddTier = document.querySelector("#add-tier");
+    buttonAddTier.addEventListener("click", function() {
+        divTierNumber += 1;
+        let divTier = document.createElement("div");
+        divTier.setAttribute("class", "tier");
+        divTier.setAttribute("id", `tier-${divTierNumber}`);
+        divTier.setAttribute("style", "background-color : #ccc;");
+        divTier.setAttribute("title", "Click to edit");
+        
+        let dragTierIcon = document.createElement("span");
+        dragTierIcon.setAttribute("class", "material-symbols-outlined handle");
+        dragTierIcon.setAttribute("data-html2canvas-ignore", "");
+        dragTierIcon.innerText = "drag_indicator";
+        
+        let inputColorPicker = document.createElement("input");
+        inputColorPicker.setAttribute("type", "color");
+        inputColorPicker.setAttribute("value", "#ffffff");
+        inputColorPicker.setAttribute("class", "color-picker");
+        inputColorPicker.setAttribute("title", "Pick a color!");
+        inputColorPicker.setAttribute("data-html2canvas-ignore", "");
+        
+        let divTierTitle = document.createElement("div");
+        divTierTitle.setAttribute("class", "tier-title");
+        divTierTitle.setAttribute("id", `tier-title-${divTierNumber}`);
+        divTierTitle.innerText = "New Tier";
+        
+        let divTierImages = document.createElement("div");
+        divTierImages.setAttribute("class", "images-sort");
+        divTierImages.setAttribute("id", `images-sort-${divTierNumber}`);
+        
+        let divTierList = document.querySelector("#tier-list");
+        
+        divTierList.appendChild(divTier);
+        divTier.appendChild(dragTierIcon);
+        divTier.appendChild(inputColorPicker);
+        divTier.appendChild(divTierTitle);
+        divTier.appendChild(divTierImages);
+        
+        dragTierIcon.addEventListener("mousedown", function() {
+            draggedElement = divTier;
+        })
+        
+        updateColorPickers();
+        updateTierTitles();
+        updateSortables();
+    });
+    //----------//
+    
     //----- ADD IMAGES -----//
     let tierImageId = 0; 
-    
+    let croppedElement;
     document.querySelector("#input-file").addEventListener("change", (e) => { 
         if (window.File && window.FileReader && window.FileList && window.Blob) {
             const files = e.target.files; 
@@ -125,12 +230,23 @@ $(function() {
                     tierImageId += 1;
                     const img = document.createElement("img");
                     img.src = addedFile.result;
+                    img.setAttribute("originalsrc", img.getAttribute("src"));
                     img.title = files[i].name;
                     ul.appendChild(li);
                     li.appendChild(img);
                     li.addEventListener("dragstart", function() {
                         draggedElement = li;
-                    })
+                    });
+                    li.addEventListener("dblclick", function() {
+                        croppedElement = li;
+                        croppedElement.childNodes[0].src = croppedElement.childNodes[0].getAttribute("originalsrc");
+                        croppie.bind({
+                            url : croppedElement.childNodes[0].src
+                        });
+                        var imageCaption = croppedElement.childNodes[0].getAttribute("title");
+                        document.getElementById("tier-image-title").innerText = imageCaption;
+                        document.getElementById("crop-container").style.visibility = "visible";
+                    });
                 });
                 reader.readAsDataURL(files[i]);
             }
@@ -147,6 +263,7 @@ $(function() {
     deleteZone.ondrop = function(){
         draggedElement.remove();
     };
+    
     //----------//
     
     //----- DELETE ALL IMAGES -----//
@@ -162,7 +279,7 @@ $(function() {
     
     //----------//
     
-    //----- TEXT EDIT -----//
+    //----- TEXT EDITS -----//
     // Tier List title
     var tierListName = "My-TierList";
     $(document).on("click", "#tier-list-title", function() {
@@ -178,6 +295,21 @@ $(function() {
             }
         });
     })
+    
+    // Image caption
+    // $(document).on("click", "#tier-image-title", function() {
+    //     var current = $(this).text();
+    //     $("#tier-image-title").html(`<input id="newcont" placeholder="${current}" style="width:100%"></input>`);
+    //     $("#newcont").focus();
+    //     $("#newcont").focus().blur(function() {
+    //         imageCaption = $("#newcont").val();
+    //         if (imageCaption == "") {
+    //             $("#tier-image-title").text("My Tier List");
+    //         } else {
+    //             $("#tier-image-title").text(imageCaption);
+    //         }
+    //     });
+    // })
     
     // Tier title
     let tierTitles = document.querySelectorAll(".tier-title");
@@ -224,71 +356,7 @@ $(function() {
     }
     //----------//
     
-    /* ADD NEW TIER */
-    let divTierNumber = 5;
     
-    // Default colors
-    let defaultTierColors = ["crimson", "darkorange", "gold", "lime", "mediumturquoise", "orchid"];
-    for (let i = 0; i < defaultTierColors.length; i++) {
-        document.querySelector(`#tier-title-${i}`).parentElement.style.backgroundColor = defaultTierColors[i];
-    }
-    
-    // Get dragged element ID
-    let tiers = document.querySelectorAll(".tier");
-    tiers.forEach(element => {
-        element.addEventListener("dragstart", function() {
-            draggedElement = element;
-        })
-    });
-    
-    // Add a Tier
-    let buttonAddTier = document.querySelector("#add-tier");
-    buttonAddTier.addEventListener("click", function() {
-        divTierNumber += 1;
-        let divTier = document.createElement("div");
-        divTier.setAttribute("class", "tier");
-        divTier.setAttribute("id", `tier-${divTierNumber}`);
-        divTier.setAttribute("style", "background-color : #ccc;");
-        divTier.setAttribute("title", "Click to edit");
-        
-        let spanIcon = document.createElement("span");
-        spanIcon.setAttribute("class", "material-symbols-outlined handle");
-        spanIcon.setAttribute("data-html2canvas-ignore", "");
-        spanIcon.innerText = "drag_indicator";
-        
-        let inputColorPicker = document.createElement("input");
-        inputColorPicker.setAttribute("type", "color");
-        inputColorPicker.setAttribute("value", "#ffffff");
-        inputColorPicker.setAttribute("class", "color-picker");
-        inputColorPicker.setAttribute("title", "Pick a color!");
-        inputColorPicker.setAttribute("data-html2canvas-ignore", "");
-        
-        let divTierTitle = document.createElement("div");
-        divTierTitle.setAttribute("class", "tier-title");
-        divTierTitle.setAttribute("id", `tier-title-${divTierNumber}`);
-        divTierTitle.innerText = "New Tier";
-        
-        let divTierImages = document.createElement("div");
-        divTierImages.setAttribute("class", "images-sort");
-        divTierImages.setAttribute("id", `images-sort-${divTierNumber}`);
-        
-        let divTierList = document.querySelector("#tier-list");
-        
-        divTierList.appendChild(divTier);
-        divTier.appendChild(spanIcon);
-        divTier.appendChild(inputColorPicker);
-        divTier.appendChild(divTierTitle);
-        divTier.appendChild(divTierImages);
-        
-        divTier.addEventListener("dragstart", function() {
-            draggedElement = divTier;
-        })
-        
-        updateColorPickers();
-        updateTierTitles();
-        updateSortables();
-    });
-    //----------//
     
     //----- DOWNLOAD TIER LIST AS JPG -----//
     $( "#download-tier-list" ).on( "click", function() {
