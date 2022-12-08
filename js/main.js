@@ -36,6 +36,7 @@ $(function() {
         croppedElement.childNodes[0].setAttribute("src", cropThumbnail.src);
         document.getElementById("crop-container").style.visibility = "hidden";
         cropThumbnail.style.visibility = "hidden";
+        firstClickCaption = true;
     });
     
     
@@ -307,7 +308,7 @@ $(function() {
     
     // Image caption
     var tierImageTitle = document.getElementById("tier-image-title");
-    let firstClickCaption = true;
+    var firstClickCaption = true;
     tierImageTitle.addEventListener("click", function() {
         if (firstClickCaption) {
             firstClickCaption = false;
@@ -321,6 +322,7 @@ $(function() {
                 if (event.key === "Enter") {                    
                     if (inputImageCaption.value == "") {
                         tierImageTitle.innerHTML = currentImageCaption;
+                        firstClickCaption = true;
                     } else {
                         croppedElement.childNodes[0].setAttribute("title", inputImageCaption.value);
                         tierImageTitle.innerHTML = inputImageCaption.value;
@@ -369,7 +371,6 @@ $(function() {
     
     /* COLOR PICKER */
     let colorPickers = document.querySelectorAll(".color-picker");
-    console.log(colorPickers)
     updateColorPickers();
     function updateColorPickers() {
         colorPickers = document.querySelectorAll(".color-picker");
