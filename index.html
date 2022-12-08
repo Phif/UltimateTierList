@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="./css/normalize.css">
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" type="text/css" href="./css/jquery-ui.min.css" />
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"/> -->
   
   <!-- Favicon -->
   <link rel="icon" href="./images/favicon.png" type="image/png">
@@ -21,7 +20,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0" />
-  <!-- <link rel="stylesheet" href="./node_modules/cropperjs/dist/cropper.min.css" /> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" />
   
   <!-- Libraries -->
@@ -30,10 +28,8 @@
   <script src="./node_modules/sortablejs/Sortable.min.js"></script>
   <script src="./js/html2canvas.js"></script> <!-- Edited with object-fit fix -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
-  <!-- <script src="./node_modules/cropperjs/dist/cropper.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
-  
-  <!-- <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script> -->
+  <script src="./js/jscolor-2.5.1/jscolor.min.js"></script>
   
   <!-- JS -->
   <script type="module" src="./js/main.js"></script>
@@ -49,13 +45,27 @@
       <div class="crop-button-container">
         <button id="button-crop-image">Preview crop</button>
         <button id="button-crop-confirm">Confirm cropping</button>
-        <button id="button-crop-cancel">Cancel</button>
+        <button id="button-crop-cancel">Quit</button>
       </div>
       <h2 id="tier-image-title" title="Click to edit"></h2>
       <img id="crop-image-thumbnail">
     </div>
   </div>
-
+  
+  <!-- JSCOLOR -->
+  <script>
+    jscolor.presets.default = {
+      palette:'"#dc143c", "#ff8c00", "#ffd700", "#4bd74b", "#4bb4dc", "#da70d6"', 
+      paletteCols:6, paletteSetsAlpha:false, paletteHeight:20, 
+      backgroundColor:'#FFFFFF', borderColor:'#FFFFFF', borderRadius:10, 
+      padding:10, width:120, height:120, closeButton:true, shadowBlur:5
+    };
+    function update(picker, selector) {
+      document.querySelector(selector).style.background = picker.toBackground();
+    }
+    jscolor.trigger('input change');
+  </script>
+  
   <!-- HTML -->
   <header>
     <img src="images/favicon.png">
@@ -73,7 +83,6 @@
     </div>
   </header>
   
-  
   <main>
     <div id="to-download">
       <h2 id="tier-list-title" title="Click to edit">My Tier List</h2>
@@ -81,42 +90,42 @@
         
         <div class="tier" id="tier-0">
           <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
-          <input type="color" value="#dc143c" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
+          <button data-jscolor="{onInput: 'update(this, \'#tier-0\')', value:'#dc143c'}" class="color-picker" title="Pick a color!" data-html2canvas-ignore></button>
           <div class="tier-title" id="tier-title-0" title="Click to edit">S</div>
           <div class="images-sort" id="images-sort-0"></div>
         </div>
         
         <div class="tier" id="tier-1">
           <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
-          <input type="color" value="#ff8c00" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
+          <button data-jscolor="{onInput: 'update(this, \'#tier-1\')', value:'#ff8c00'}" class="color-picker" title="Pick a color!" data-html2canvas-ignore></button>
           <div class="tier-title" id="tier-title-1" title="Click to edit">A</div>
           <div class="images-sort" id="images-sort-1"></div>
         </div>
         
         <div class="tier" id="tier-2">
           <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
-          <input type="color" value="#ffd700" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
+          <button data-jscolor="{onInput: 'update(this, \'#tier-2\')', value:'#ffd700'}" class="color-picker" title="Pick a color!" data-html2canvas-ignore></button>
           <div class="tier-title" id="tier-title-2" title="Click to edit">B</div>
           <div class="images-sort" id="images-sort-2"></div>
         </div>
         
         <div class="tier" id="tier-3">
           <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
-          <input type="color" value="#4bd74b" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
+          <button data-jscolor="{onInput: 'update(this, \'#tier-3\')', value:'#4bd74b'}" class="color-picker" title="Pick a color!" data-html2canvas-ignore></button>
           <div class="tier-title" id="tier-title-3" title="Click to edit">C</div>
           <div class="images-sort" id="images-sort-3"></div>
         </div>
         
         <div class="tier" id="tier-4">
           <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
-          <input type="color" value="#4bb4dc" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
+          <button data-jscolor="{onInput: 'update(this, \'#tier-4\')', value:'#4bb4dc'}" class="color-picker" title="Pick a color!" data-html2canvas-ignore></button>
           <div class="tier-title" id="tier-title-4" title="Click to edit">D</div>
           <div class="images-sort" id="images-sort-4"></div>
         </div>
         
         <div class="tier" id="tier-5">
           <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
-          <input type="color" value="#da70d6" class="color-picker" title="Pick a color!" data-html2canvas-ignore>
+          <button data-jscolor="{onInput: 'update(this, \'#tier-5\')', value:'#da70d6'}" class="color-picker" title="Pick a color!" data-html2canvas-ignore></button>
           <div class="tier-title" id="tier-title-5" title="Click to edit">F</div>
           <div class="images-sort" id="images-sort-5">
             <!-- <li class="tier-image" id="yoyo1">

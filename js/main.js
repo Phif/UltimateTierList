@@ -3,14 +3,14 @@
 $(function() {
     // CROPPIE //
     let cropThumbnail = document.getElementById("crop-image-thumbnail");
-
+    
     var croppie = new Croppie(document.getElementById('crop-image'), {
         showZoomer: true
     });
     
     document.getElementById("button-crop-image").addEventListener("click", function() {
         cropThumbnail.style.visibility = "visible";
-
+        
         croppie.result({
             type: 'base64',
             size: {width: 200, height: 200},
@@ -31,7 +31,6 @@ $(function() {
             croppedElement.childNodes[0].setAttribute("src", newSrc);
         });
     });
-    
     
     document.getElementById("button-crop-cancel").addEventListener("click", function() {
         croppedElement.childNodes[0].setAttribute("src", cropThumbnail.src);
@@ -180,12 +179,17 @@ $(function() {
         dragTierIcon.setAttribute("data-html2canvas-ignore", "");
         dragTierIcon.innerText = "drag_indicator";
         
-        let inputColorPicker = document.createElement("input");
-        inputColorPicker.setAttribute("type", "color");
-        inputColorPicker.setAttribute("value", "#ffffff");
-        inputColorPicker.setAttribute("class", "color-picker");
-        inputColorPicker.setAttribute("title", "Pick a color!");
-        inputColorPicker.setAttribute("data-html2canvas-ignore", "");
+        let buttonColorPicker = document.createElement("button");
+        buttonColorPicker.setAttribute("class", "color-picker");
+        buttonColorPicker.setAttribute("title", "Pick a color!");
+        buttonColorPicker.setAttribute("data-html2canvas-ignore", "");
+        
+        // let inputColorPicker = document.createElement("input");
+        // inputColorPicker.setAttribute("type", "color");
+        // inputColorPicker.setAttribute("value", "#ffffff");
+        // inputColorPicker.setAttribute("class", "color-picker");
+        // inputColorPicker.setAttribute("title", "Pick a color!");
+        // inputColorPicker.setAttribute("data-html2canvas-ignore", "");
         
         let divTierTitle = document.createElement("div");
         divTierTitle.setAttribute("class", "tier-title");
@@ -200,15 +204,17 @@ $(function() {
         
         divTierList.appendChild(divTier);
         divTier.appendChild(dragTierIcon);
-        divTier.appendChild(inputColorPicker);
+        divTier.appendChild(buttonColorPicker);
+        // divTier.appendChild(inputColorPicker);
         divTier.appendChild(divTierTitle);
         divTier.appendChild(divTierImages);
+        new JSColor(buttonColorPicker, {onInput: `update(this, \'#tier-${divTierNumber}\')`, value: "#fff"});
         
         dragTierIcon.addEventListener("mousedown", function() {
             draggedElement = divTier;
         })
         
-        updateColorPickers();
+        // updateColorPickers();
         updateTierTitles();
         updateSortables();
     });
@@ -300,19 +306,34 @@ $(function() {
     })
     
     // Image caption
-    // $(document).on("click", "#tier-image-title", function() {
-    //     var current = $(this).text();
-    //     $("#tier-image-title").html(`<input id="newcont" placeholder="${current}" style="width:100%"></input>`);
-    //     $("#newcont").focus();
-    //     $("#newcont").focus().blur(function() {
-    //         imageCaption = $("#newcont").val();
-    //         if (imageCaption == "") {
-    //             $("#tier-image-title").text("My Tier List");
-    //         } else {
-    //             $("#tier-image-title").text(imageCaption);
-    //         }
-    //     });
-    // })
+    var tierImageTitle = document.getElementById("tier-image-title");
+    let firstClickCaption = true;
+    tierImageTitle.addEventListener("click", function() {
+        if (firstClickCaption) {
+            firstClickCaption = false;
+            var currentImageCaption = croppedElement.childNodes[0].getAttribute("title");
+            tierImageTitle.innerHTML = (`<input id="input-image-caption" placeholder="${currentImageCaption}"></input>`);
+            var inputImageCaption = document.getElementById("input-image-caption");
+            inputImageCaption.focus();
+            inputImageCaption.value = currentImageCaption;
+            inputImageCaption.select();
+            tierImageTitle.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {                    
+                    if (inputImageCaption.value == "") {
+                        tierImageTitle.innerHTML = currentImageCaption;
+                    } else {
+                        croppedElement.childNodes[0].setAttribute("title", inputImageCaption.value);
+                        tierImageTitle.innerHTML = inputImageCaption.value;
+                        firstClickCaption = true;
+                    }
+                }
+                if (event.key === "Escape") {
+                    tierImageTitle.innerHTML = currentImageCaption;
+                    firstClickCaption = true;
+                }
+            });
+        }
+    });
     
     // Tier title
     let tierTitles = document.querySelectorAll(".tier-title");
@@ -348,6 +369,7 @@ $(function() {
     
     /* COLOR PICKER */
     let colorPickers = document.querySelectorAll(".color-picker");
+    console.log(colorPickers)
     updateColorPickers();
     function updateColorPickers() {
         colorPickers = document.querySelectorAll(".color-picker");
@@ -358,8 +380,6 @@ $(function() {
         });
     }
     //----------//
-    
-    
     
     //----- DOWNLOAD TIER LIST AS JPG -----//
     $( "#download-tier-list" ).on( "click", function() {

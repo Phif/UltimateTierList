@@ -2,6 +2,7 @@
 *, *:before, *:after {
   box-sizing: border-box;
   list-style: none;
+  scroll-behavior: smooth;
 }
 
 html {
@@ -137,20 +138,6 @@ button:hover {
   width: 100px;
   height: 100px;
 }
-/*
-#image {
-  display: block;
-  max-width: 100%;
-}
-#button-crop-image {
-  width: 100px;
-  height: 50px;
-}
-#output {
-  width: 100px;
-  height: 100px;
-} */
-
 
 /* TIERLIST */
 main {
@@ -173,7 +160,6 @@ main {
   padding: 5px;
   border-radius: 10px;
   background-color: lightgrey;
-  /* transition: all ease-in-out 0.2s; */
 }
 
 .tier-settings {
@@ -228,11 +214,9 @@ main {
   min-height: 100px;
 }
 
-.color-picker {
-  cursor: pointer;
-  width: 30px;
-  height:30px;
-  transition: all ease-in-out 0.2s;
+.color-picker  {
+  height: 32px;
+  border: 2px solid white
 }
 
 .color-picker:hover {
