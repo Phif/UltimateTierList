@@ -19,7 +19,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0" />
+  <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" />
   
   <!-- Libraries -->
@@ -68,18 +69,23 @@
   
   <!-- HTML -->
   <header>
-    <img src="images/favicon.png">
-    <h1>ULTIMATE TIER LIST  </h1>
-    <div class="options">
-      <button id="delete-all-images" title="Delete all images">
-        <span class="material-symbols-outlined">delete</span>
-      </button>
-      <button id="download-tier-list" title="Download Tier List as JPG">
-        <span class="material-symbols-outlined">download</span>
-      </button>
-      <button id="share-tier-list" title="Share Tier List (Coming soon!)">
-        <span class="material-symbols-outlined">share</span>
-      </button>
+    <div class="header-container">
+      <img src="images/favicon.png">
+      <h1>ULTIMATE TIER LIST</h1>
+      <div class="options">
+        <button id="import-tier-list" title="Import a Tier List template from TierMaker">
+          <span class="material-symbols-rounded">format_list_bulleted_add</span>
+        </button>
+        <button id="delete-all-images" title="Delete all images">
+          <span class="material-symbols-rounded">delete</span>
+        </button>
+        <button id="download-tier-list" title="Download Tier List as JPG">
+          <span class="material-symbols-rounded">download</span>
+        </button>
+        <button id="share-tier-list" title="Share Tier List (Coming soon!)">
+          <span class="material-symbols-rounded">share</span>
+        </button>
+      </div>
     </div>
   </header>
   
@@ -89,42 +95,42 @@
       <div id="tier-list">
         
         <div class="tier" id="tier-0">
-          <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
+          <span class="material-symbols-rounded handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
           <button data-jscolor="{onInput: 'update(this, \'#tier-0\')', value:'#dc143c'}" class="color-picker" title="Pick a color!" data-html2canvas-ignore></button>
           <div class="tier-title" id="tier-title-0" title="Click to edit">S</div>
           <div class="images-sort" id="images-sort-0"></div>
         </div>
         
         <div class="tier" id="tier-1">
-          <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
+          <span class="material-symbols-rounded handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
           <button data-jscolor="{onInput: 'update(this, \'#tier-1\')', value:'#ff8c00'}" class="color-picker" title="Pick a color!" data-html2canvas-ignore></button>
           <div class="tier-title" id="tier-title-1" title="Click to edit">A</div>
           <div class="images-sort" id="images-sort-1"></div>
         </div>
         
         <div class="tier" id="tier-2">
-          <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
+          <span class="material-symbols-rounded handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
           <button data-jscolor="{onInput: 'update(this, \'#tier-2\')', value:'#ffd700'}" class="color-picker" title="Pick a color!" data-html2canvas-ignore></button>
           <div class="tier-title" id="tier-title-2" title="Click to edit">B</div>
           <div class="images-sort" id="images-sort-2"></div>
         </div>
         
         <div class="tier" id="tier-3">
-          <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
+          <span class="material-symbols-rounded handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
           <button data-jscolor="{onInput: 'update(this, \'#tier-3\')', value:'#4bd74b'}" class="color-picker" title="Pick a color!" data-html2canvas-ignore></button>
           <div class="tier-title" id="tier-title-3" title="Click to edit">C</div>
           <div class="images-sort" id="images-sort-3"></div>
         </div>
         
         <div class="tier" id="tier-4">
-          <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
+          <span class="material-symbols-rounded handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
           <button data-jscolor="{onInput: 'update(this, \'#tier-4\')', value:'#4bb4dc'}" class="color-picker" title="Pick a color!" data-html2canvas-ignore></button>
           <div class="tier-title" id="tier-title-4" title="Click to edit">D</div>
           <div class="images-sort" id="images-sort-4"></div>
         </div>
         
         <div class="tier" id="tier-5">
-          <span class="material-symbols-outlined handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
+          <span class="material-symbols-rounded handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
           <button data-jscolor="{onInput: 'update(this, \'#tier-5\')', value:'#da70d6'}" class="color-picker" title="Pick a color!" data-html2canvas-ignore></button>
           <div class="tier-title" id="tier-title-5" title="Click to edit">F</div>
           <div class="images-sort" id="images-sort-5">
@@ -140,22 +146,22 @@
     
     <ul class="uploaded-images-list images-sort" id="images-list">
       <div class="action solid" id="add-tier" title="Add a Tier">
-        <span class="material-symbols-outlined">playlist_add</span>
+        <span class="material-symbols-rounded">playlist_add</span>
       </div>
       
       <div class="action solid" id="add-image"  title="Add image(s) (Drag & Drop / Click to browse)">
         <label for="input-file">
-          <span class="material-symbols-outlined">add_photo_alternate</span>
+          <span class="material-symbols-rounded">add_photo_alternate</span>
           <input type="file" accept="image/*" name="image" id="input-file" multiple>
         </label>
       </div>
       
       <div class="action dashed" id="delete-zone" title="Delete a Tier or an image (Drop here)">
-        <span class="material-symbols-outlined">delete</span>
+        <span class="material-symbols-rounded">delete</span>
       </div>
       
       <!-- <div class="action dashed" id="edit-zone" title="Edit an image (Drop here)">
-        <span class="material-symbols-outlined">edit</span>
+        <span class="material-symbols-rounded">edit</span>
       </div> -->
     </ul>
     
@@ -175,7 +181,7 @@
           • <em>Hold click</em> on an uploaded image to zoom it
         </li>
         <li>
-          • <em>Double click</em> on an uploaded image to crop it <!-- or to edit its caption -->
+          • <em>Double click</em> on an uploaded image to crop it and to edit its caption
         </li>
       </ul>
     </div>
