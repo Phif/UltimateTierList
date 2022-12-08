@@ -39,6 +39,13 @@ $(function() {
         firstClickCaption = true;
     });
     
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape" && (document.getElementById("crop-container").style.visibility == "visible")) {
+            document.getElementById("crop-container").style.visibility = "hidden";
+            firstClickCaption = true;
+        }
+    })
+    
     
     //----- SORTABLE -----//
     var el = document.querySelector('#tier-list');
