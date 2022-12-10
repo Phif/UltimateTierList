@@ -2,7 +2,8 @@ $(function() {
     // SHOW/HIDE CAPTIONS //
     var isCaptionOn = false;
     document.getElementById("toggle-image-captions").childNodes[1].innerHTML = "subtitles_off";
-    document.getElementById("toggle-image-captions").style.backgroundColor = "#dc143c";
+    document.getElementById("toggle-image-captions").style.backgroundColor = "white";
+    document.getElementById("toggle-image-captions").setAttribute("title", "Click to display image captions");
     document.getElementById("toggle-image-captions").addEventListener("click", function() {
         let captionArray = document.querySelectorAll(".caption");
         if (isCaptionOn) {
@@ -10,7 +11,8 @@ $(function() {
                 element.style.visibility = "hidden";
             });
             document.getElementById("toggle-image-captions").childNodes[1].innerHTML = "subtitles_off";
-            document.getElementById("toggle-image-captions").style.backgroundColor = "#dc143c";
+            document.getElementById("toggle-image-captions").style.backgroundColor = "white";
+            document.getElementById("toggle-image-captions").setAttribute("title", "Click to display image captions");
             isCaptionOn = false;
         } else {
             captionArray.forEach(element => {
@@ -18,6 +20,7 @@ $(function() {
             });
             document.getElementById("toggle-image-captions").childNodes[1].innerHTML = "subtitles";
             document.getElementById("toggle-image-captions").style.backgroundColor = "#4bd74b";
+            document.getElementById("toggle-image-captions").setAttribute("title", "Click to hide image captions");
             isCaptionOn = true;
         }
     })
