@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Ultimate Tier List</title>
   
@@ -23,24 +23,24 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" />
   
-  <!-- Libraries -->
+</head>
+
+<body>
+  <!-- LIBRAIRIES -->
   <script src="./js/jquery-3.6.1.min.js"></script>
-  <script src="./js/jquery-ui.min.js"></script>
   <script src="./node_modules/sortablejs/Sortable.min.js"></script>
-  <script src="./js/html2canvas.js"></script> <!-- Edited with object-fit fix -->
+  <script src="./js/html2canvas.min.js"></script> <!-- Edited with object-fit fix -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
   <script src="./js/jscolor-2.5.1/jscolor.min.js"></script>
   
   <!-- JS -->
   <script type="module" src="./js/main.js"></script>
-</head>
 
-<body>
   <!-- CROPPER -->
   <div id="crop-container">
     <div id="crop-image-container">
-      <img id="crop-image">
+      <img id="crop-image" alt="Image being cropped">
     </div>
     <div id="crop-options">
       <div class="crop-button-container">
@@ -49,7 +49,7 @@
         <button id="button-crop-cancel">Quit</button>
       </div>
       <h2 id="tier-image-title" title="Click to edit"></h2>
-      <img id="crop-image-thumbnail">
+      <img id="crop-image-thumbnail" alt="Cropped image thumbnail">
     </div>
   </div>
   
@@ -70,11 +70,11 @@
   <!-- HTML -->
   <header>
     <div class="header-container">
-      <img src="images/favicon.png">
+      <img src="images/favicon.png" alt="Logo">
       <h1>ULTIMATE TIER LIST</h1>
       <div class="options">
-        <button id="import-tier-list" title="Import a Tier List template from TierMaker">
-          <span class="material-symbols-rounded">format_list_bulleted_add</span>
+        <button id="toggle-image-captions" title="Show images captions">
+          <span class="material-symbols-rounded">subtitles</span>
         </button>
         <button id="delete-all-images" title="Delete all images">
           <span class="material-symbols-rounded">delete</span>
@@ -133,11 +133,7 @@
           <span class="material-symbols-rounded handle" title="Drag me!" data-html2canvas-ignore>drag_indicator</span>
           <button data-jscolor="{onInput: 'update(this, \'#tier-5\')', value:'#da70d6'}" class="color-picker" title="Pick a color!" data-html2canvas-ignore></button>
           <div class="tier-title" id="tier-title-5" title="Click to edit">F</div>
-          <div class="images-sort" id="images-sort-5">
-            <!-- <li class="tier-image" id="yoyo1">
-              <img src="images\tierlist\1920x1080-414922-anime-anime-girls-Nier-Automata-2B-Nier-Automata.jpg" title="nier automata" >
-            </li> -->
-          </div>
+          <div class="images-sort" id="images-sort-5"></div>
         </div>
       </div>
     </div>
@@ -163,6 +159,11 @@
       <!-- <div class="action dashed" id="edit-zone" title="Edit an image (Drop here)">
         <span class="material-symbols-rounded">edit</span>
       </div> -->
+      
+      <!-- <li class="tier-image">
+        <img src="images\tierlist\1920x1080-414922-anime-anime-girls-Nier-Automata-2B-Nier-Automata.jpg" title="nier automata">
+        <span class="caption">Lorem Ipsum is simply dummy text</span>
+      </li> -->
     </ul>
     
   </main>

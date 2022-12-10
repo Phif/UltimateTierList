@@ -74,12 +74,12 @@ header img {
   font-size: 30px !important;
 }
 
-#share-tier-list, #import-tier-list {
+#share-tier-list {
   background-color: crimson;
   cursor: default;
 }
 
-#share-tier-list:hover, #import-tier-list:hover {
+#share-tier-list:hover {
   border: 2px solid transparent;
 }
 
@@ -259,22 +259,37 @@ main {
 .tier-image {
   height: 100px;
   width: 100px;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .tier-image img {
   object-fit: cover;
   object-position: center; 
-  border-radius: 10px;
   height: 100px;
   width: 100px;
   image-rendering: optimizeQuality;
+}
+
+.caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 5px;
+  font-size: 0.8em;
+  visibility: hidden;
+  word-break: break-word;
+  text-align: center;
 }
 
 /* ACTIONS */
 .action-container {
   display: flex;
   flex-flow: row wrap;
-  /* margin: 10px 0; */
   gap: 5px;
 }
 

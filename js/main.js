@@ -1,6 +1,27 @@
-
-
 $(function() {
+    // SHOW/HIDE CAPTIONS //
+    var isCaptionOn = false;
+    document.getElementById("toggle-image-captions").childNodes[1].innerHTML = "subtitles_off";
+    document.getElementById("toggle-image-captions").style.backgroundColor = "#dc143c";
+    document.getElementById("toggle-image-captions").addEventListener("click", function() {
+        let captionArray = document.querySelectorAll(".caption");
+        if (isCaptionOn) {
+            captionArray.forEach(element => {
+                element.style.visibility = "hidden";
+            });
+            document.getElementById("toggle-image-captions").childNodes[1].innerHTML = "subtitles_off";
+            document.getElementById("toggle-image-captions").style.backgroundColor = "#dc143c";
+            isCaptionOn = false;
+        } else {
+            captionArray.forEach(element => {
+                element.style.visibility = "visible";
+            });
+            document.getElementById("toggle-image-captions").childNodes[1].innerHTML = "subtitles";
+            document.getElementById("toggle-image-captions").style.backgroundColor = "#4bd74b";
+            isCaptionOn = true;
+        }
+    })
+
     // CROPPIE //
     let cropThumbnail = document.getElementById("crop-image-thumbnail");
     
@@ -22,34 +43,39 @@ $(function() {
     document.getElementById("button-crop-confirm").addEventListener("click", function() {
         if (croppedElement.childNodes[0].getAttribute("originalsrc").match(/data:image\/gif/gi)) {
             if (confirm("Cropping this GIF will turn it into a standard image with no animations. This change can't be reverted unless you reupload the image.\rAre you sure?")) {
-                document.getElementById("crop-container").style.visibility = "hidden";
-                cropThumbnail.setAttribute("src", "");
-                cropThumbnail.style.visibility = "hidden";
-                
-                croppie.result({
-                    type: 'base64',
-                    size: {width: 200, height: 200},
-                }).then((newSrc) => {
-                    croppedElement.childNodes[0].setAttribute("src", newSrc);
-                });
+                executeCropping();
             }
+        } else {
+            executeCropping();
         }
     });
     
+    function executeCropping() {
+        document.getElementById("crop-container").style.visibility = "hidden";
+        cropThumbnail.setAttribute("src", "");
+        cropThumbnail.style.visibility = "hidden";
+        
+        croppie.result({
+            type: 'base64',
+            size: {width: 200, height: 200},
+        }).then((newSrc) => {
+            croppedElement.childNodes[0].setAttribute("src", newSrc);
+        });
+    }
+
     document.getElementById("button-crop-cancel").addEventListener("click", function() {
         croppedElement.childNodes[0].setAttribute("src", cropThumbnail.src);
         document.getElementById("crop-container").style.visibility = "hidden";
         cropThumbnail.style.visibility = "hidden";
-        firstClickCaption = true;
+        isCaptionClickable = true;
     });
     
     document.addEventListener("keydown", function(event) {
         if (event.key === "Escape" && (document.getElementById("crop-container").style.visibility == "visible")) {
             document.getElementById("crop-container").style.visibility = "hidden";
-            firstClickCaption = true;
+            isCaptionClickable = true;
         }
     })
-    
     
     //----- SORTABLE -----//
     var el = document.querySelector('#tier-list');
@@ -81,21 +107,6 @@ $(function() {
         
     }
     //----------//
-    
-    
-    //----- TOOLTIP -----//
-    // $( document ).tooltip({
-    //     show: {
-    //         delay: 0
-    //     },
-    //     position: {
-    //         my: "center bottom-30px",
-    //         at: "center top",
-    //     },
-    //     track: true
-    // });
-    //----------//
-    
     
     //----- MOUSE EVENTS -----//
     $(document).on("mouseleave", ".tier-image", function() {
@@ -187,7 +198,7 @@ $(function() {
         divTier.setAttribute("title", "Click to edit");
         
         let dragTierIcon = document.createElement("span");
-        dragTierIcon.setAttribute("class", "material-symbols-outlined handle");
+        dragTierIcon.setAttribute("class", "material-symbols-rounded handle");
         dragTierIcon.setAttribute("data-html2canvas-ignore", "");
         dragTierIcon.innerText = "drag_indicator";
         
@@ -235,10 +246,9 @@ $(function() {
     //----- ADD IMAGES -----//
     let tierImageId = 0; 
     let croppedElement;
-    var files; 
     document.querySelector("#input-file").addEventListener("change", (e) => { 
         if (window.File && window.FileReader && window.FileList && window.Blob) {
-            files = e.target.files;  
+            var files = e.target.files;  
             const ul = document.querySelector("#images-list");
             for (let i = 0 ; i < files.length ; i++) {
                 if (!files[i].type.match("image")) continue;
@@ -252,9 +262,17 @@ $(function() {
                     const img = document.createElement("img");
                     img.src = addedFile.result;
                     img.setAttribute("originalsrc", img.getAttribute("src"));
-                    img.title = files[i].name;
+                    img.title = files[i].name.match(/.*(?=\.)/i);
+
+                    const span = document.createElement("span");
+                    span.setAttribute("class", "caption");
+                    span.innerText = img.getAttribute("title");
+                    if (isCaptionOn) {span.style.visibility = "visible";}
+
                     ul.appendChild(li);
                     li.appendChild(img);
+                    li.appendChild(span);
+
                     li.addEventListener("dragstart", function() {
                         draggedElement = li;
                     });
@@ -320,10 +338,10 @@ $(function() {
     
     // Image caption
     var tierImageTitle = document.getElementById("tier-image-title");
-    var firstClickCaption = true;
+    var isCaptionClickable = true;
     tierImageTitle.addEventListener("click", function() {
-        if (firstClickCaption) {
-            firstClickCaption = false;
+        if (isCaptionClickable) {
+            isCaptionClickable = false;
             var currentImageCaption = croppedElement.childNodes[0].getAttribute("title");
             tierImageTitle.innerHTML = (`<input id="input-image-caption" placeholder="${currentImageCaption}"></input>`);
             var inputImageCaption = document.getElementById("input-image-caption");
@@ -334,16 +352,17 @@ $(function() {
                 if (event.key === "Enter") {                    
                     if (inputImageCaption.value == "") {
                         tierImageTitle.innerHTML = currentImageCaption;
-                        firstClickCaption = true;
+                        isCaptionClickable = true;
                     } else {
                         croppedElement.childNodes[0].setAttribute("title", inputImageCaption.value);
                         tierImageTitle.innerHTML = inputImageCaption.value;
-                        firstClickCaption = true;
+                        croppedElement.childNodes[1].innerText = inputImageCaption.value;
+                        isCaptionClickable = true;
                     }
                 }
                 if (event.key === "Escape") {
                     tierImageTitle.innerHTML = currentImageCaption;
-                    firstClickCaption = true;
+                    isCaptionClickable = true;
                 }
             });
         }
@@ -352,7 +371,7 @@ $(function() {
     // Tier title
     let tierTitles = document.querySelectorAll(".tier-title");
     let tierTitlesArray = new Array;
-    let firstClick = true;
+    let isTierTitleClickable = true;
     updateTierTitles();
     function updateTierTitles() {
         tierTitles = document.querySelectorAll(".tier-title");
@@ -365,16 +384,16 @@ $(function() {
         tierTitlesArray.forEach(element => {
             $(document).on("click", element, function() {
                 var current = $(this).text();
-                if (firstClick) {
+                if (isTierTitleClickable) {
                     $(element).html(`<textarea id="newcont" style="width:100px; height:90px;">${current}</textarea>`);
                     $("#newcont").focus();
                     $("#newcont").select()
-                    firstClick = false;
+                    isTierTitleClickable = false;
                 } 
                 $("#newcont").focus().blur(function() {
                     var newcont = $("#newcont").val();
                     $(element).text(newcont);
-                    firstClick = true;
+                    isTierTitleClickable = true;
                 });
             })
         });
