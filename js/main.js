@@ -20,16 +20,20 @@ $(function() {
     });
     
     document.getElementById("button-crop-confirm").addEventListener("click", function() {
-        document.getElementById("crop-container").style.visibility = "hidden";
-        cropThumbnail.setAttribute("src", "");
-        cropThumbnail.style.visibility = "hidden";
-        
-        croppie.result({
-            type: 'base64',
-            size: {width: 200, height: 200},
-        }).then((newSrc) => {
-            croppedElement.childNodes[0].setAttribute("src", newSrc);
-        });
+        if (croppedElement.childNodes[0].getAttribute("originalsrc").match(/data:image\/gif/gi)) {
+            if (confirm("Cropping this GIF will turn it into a standard image with no animations. This change can't be reverted unless you reupload the image.\rAre you sure?")) {
+                document.getElementById("crop-container").style.visibility = "hidden";
+                cropThumbnail.setAttribute("src", "");
+                cropThumbnail.style.visibility = "hidden";
+                
+                croppie.result({
+                    type: 'base64',
+                    size: {width: 200, height: 200},
+                }).then((newSrc) => {
+                    croppedElement.childNodes[0].setAttribute("src", newSrc);
+                });
+            }
+        }
     });
     
     document.getElementById("button-crop-cancel").addEventListener("click", function() {
@@ -231,9 +235,10 @@ $(function() {
     //----- ADD IMAGES -----//
     let tierImageId = 0; 
     let croppedElement;
+    var files; 
     document.querySelector("#input-file").addEventListener("change", (e) => { 
         if (window.File && window.FileReader && window.FileList && window.Blob) {
-            const files = e.target.files; 
+            files = e.target.files;  
             const ul = document.querySelector("#images-list");
             for (let i = 0 ; i < files.length ; i++) {
                 if (!files[i].type.match("image")) continue;
@@ -265,7 +270,7 @@ $(function() {
                         document.getElementById("crop-container").style.visibility = "visible";
                     });
                 });
-                reader.readAsDataURL(files[i]);
+                reader.readAsDataURL(files[i]);                
             }
         } else {
             alert("Your browser does not support File API");
@@ -286,7 +291,7 @@ $(function() {
     //----- DELETE ALL IMAGES -----//
     const deleteAllTierImages = document.querySelector("#delete-all-images");
     deleteAllTierImages.addEventListener("click", function() { 
-        if (confirm("This will delete ALL the images that you uploaded. Are you sure?")) {
+        if (confirm("This will delete ALL the images that you uploaded.\rAre you sure?")) {
             let allTierImages = document.querySelectorAll(".tier-image");
             allTierImages.forEach(element => {     
                 element.remove();
