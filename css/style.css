@@ -126,7 +126,7 @@ header img {
   gap: 10px;
 }
 
-.crop-button-container {
+#crop-button-container {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -134,7 +134,7 @@ header img {
   gap: 10px;
 }
 
-#button-crop-image {
+#button-crop-preview {
   color: white;
   background-color: #4bb4dc;
 }
@@ -154,6 +154,22 @@ header img {
   visibility: hidden;
   width: 100px;
   height: 100px;
+}
+
+#caption-saved {
+  position: fixed;
+  bottom: 50px;
+  left: calc(50% - 100px);
+  width: 200px;
+  border: 2px solid green;
+  border-radius: 10px;
+  background-color: lightgreen;
+  padding: 10px;
+  text-align: center;
+  transition: all ease-in-out 0.2s;
+  transform: scale(0);
+  visibility: hidden;
+  z-index: 10;
 }
 
 /* TIERLIST */

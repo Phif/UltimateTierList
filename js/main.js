@@ -1,29 +1,37 @@
 $(function() {
     // SHOW/HIDE CAPTIONS //
     var isCaptionOn = false;
-    document.getElementById("toggle-image-captions").childNodes[1].innerHTML = "subtitles_off";
-    document.getElementById("toggle-image-captions").style.backgroundColor = "white";
-    document.getElementById("toggle-image-captions").setAttribute("title", "Click to display image captions");
+    toggleCaptionOff();
+
     document.getElementById("toggle-image-captions").addEventListener("click", function() {
         let captionArray = document.querySelectorAll(".caption");
+
         if (isCaptionOn) {
             captionArray.forEach(element => {
                 element.style.visibility = "hidden";
             });
-            document.getElementById("toggle-image-captions").childNodes[1].innerHTML = "subtitles_off";
-            document.getElementById("toggle-image-captions").style.backgroundColor = "white";
-            document.getElementById("toggle-image-captions").setAttribute("title", "Click to display image captions");
-            isCaptionOn = false;
+            toggleCaptionOff();
         } else {
             captionArray.forEach(element => {
                 element.style.visibility = "visible";
             });
-            document.getElementById("toggle-image-captions").childNodes[1].innerHTML = "subtitles";
-            document.getElementById("toggle-image-captions").style.backgroundColor = "#4bd74b";
-            document.getElementById("toggle-image-captions").setAttribute("title", "Click to hide image captions");
-            isCaptionOn = true;
+            toggleCaptionOn();
         }
     })
+
+    function toggleCaptionOn() {
+        document.getElementById("toggle-image-captions").childNodes[1].innerHTML = "subtitles";
+        document.getElementById("toggle-image-captions").style.backgroundColor = "#4bd74b";
+        document.getElementById("toggle-image-captions").setAttribute("title", "Click to hide image captions");
+        isCaptionOn = true;
+    }
+
+    function toggleCaptionOff() {
+        document.getElementById("toggle-image-captions").childNodes[1].innerHTML = "subtitles_off";
+        document.getElementById("toggle-image-captions").style.backgroundColor = "white";
+        document.getElementById("toggle-image-captions").setAttribute("title", "Click to display image captions");
+        isCaptionOn = false;
+    }
 
     // CROPPIE //
     let cropThumbnail = document.getElementById("crop-image-thumbnail");
@@ -32,17 +40,19 @@ $(function() {
         showZoomer: true
     });
     
-    document.getElementById("button-crop-image").addEventListener("click", function() {
+    // Preview
+    document.getElementById("button-crop-preview").addEventListener("click", function() {
         cropThumbnail.style.visibility = "visible";
         
         croppie.result({
             type: 'base64',
             size: {width: 200, height: 200},
         }).then((newSrc) => {
-            cropThumbnail.setAttribute("src", newSrc); // Preview
+            cropThumbnail.setAttribute("src", newSrc);
         });
     });
     
+    // Confirm
     document.getElementById("button-crop-confirm").addEventListener("click", function() {
         if (croppedElement.childNodes[0].getAttribute("originalsrc").match(/data:image\/gif/gi)) {
             if (confirm("Cropping this GIF will turn it into a standard image with no animations. This change can't be reverted unless you reupload the image.\rAre you sure?")) {
@@ -66,19 +76,23 @@ $(function() {
         });
     }
 
+    // Quit
     document.getElementById("button-crop-cancel").addEventListener("click", function() {
-        croppedElement.childNodes[0].setAttribute("src", cropThumbnail.src);
-        document.getElementById("crop-container").style.visibility = "hidden";
-        cropThumbnail.style.visibility = "hidden";
-        isCaptionClickable = true;
+        quitCropping();
     });
     
     document.addEventListener("keydown", function(event) {
         if (event.key === "Escape" && (document.getElementById("crop-container").style.visibility == "visible")) {
-            document.getElementById("crop-container").style.visibility = "hidden";
-            isCaptionClickable = true;
+            quitCropping();
         }
     })
+
+    function quitCropping() {
+        croppedElement.childNodes[0].setAttribute("src", cropThumbnail.src);
+        document.getElementById("crop-container").style.visibility = "hidden";
+        cropThumbnail.style.visibility = "hidden";
+        isCaptionClickable = true;
+    }
     
     //----- SORTABLE -----//
     var el = document.querySelector('#tier-list');
@@ -339,38 +353,6 @@ $(function() {
         });
     })
     
-    // Image caption
-    var tierImageTitle = document.getElementById("tier-image-title");
-    var isCaptionClickable = true;
-    tierImageTitle.addEventListener("click", function() {
-        if (isCaptionClickable) {
-            isCaptionClickable = false;
-            var currentImageCaption = croppedElement.childNodes[0].getAttribute("title");
-            tierImageTitle.innerHTML = (`<input id="input-image-caption" placeholder="${currentImageCaption}"></input>`);
-            var inputImageCaption = document.getElementById("input-image-caption");
-            inputImageCaption.focus();
-            inputImageCaption.value = currentImageCaption;
-            inputImageCaption.select();
-            tierImageTitle.addEventListener("keydown", function(event) {
-                if (event.key === "Enter") {                    
-                    if (inputImageCaption.value == "") {
-                        tierImageTitle.innerHTML = currentImageCaption;
-                        isCaptionClickable = true;
-                    } else {
-                        croppedElement.childNodes[0].setAttribute("title", inputImageCaption.value);
-                        tierImageTitle.innerHTML = inputImageCaption.value;
-                        croppedElement.childNodes[1].innerText = inputImageCaption.value;
-                        isCaptionClickable = true;
-                    }
-                }
-                if (event.key === "Escape") {
-                    tierImageTitle.innerHTML = currentImageCaption;
-                    isCaptionClickable = true;
-                }
-            });
-        }
-    });
-    
     // Tier title
     let tierTitles = document.querySelectorAll(".tier-title");
     let tierTitlesArray = new Array;
@@ -400,6 +382,55 @@ $(function() {
                 });
             })
         });
+    }
+
+    // Image caption
+    var tierImageTitle = document.getElementById("tier-image-title");
+    var isCaptionClickable = true;
+    tierImageTitle.addEventListener("click", function() {
+        if (isCaptionClickable) {
+            isCaptionClickable = false;
+            var currentImageCaption = croppedElement.childNodes[0].getAttribute("title");
+            tierImageTitle.innerHTML = (`<input id="input-image-caption" placeholder="${currentImageCaption}"></input>`);
+            var inputImageCaption = document.getElementById("input-image-caption");
+            inputImageCaption.focus();
+            inputImageCaption.value = currentImageCaption;
+            inputImageCaption.select();
+            tierImageTitle.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {                    
+                    if (inputImageCaption.value == "") {
+                        tierImageTitle.innerHTML = currentImageCaption;
+                        isCaptionClickable = true;
+                    } else {
+                        croppedElement.childNodes[0].setAttribute("title", inputImageCaption.value);
+                        tierImageTitle.innerHTML = inputImageCaption.value;
+                        croppedElement.childNodes[1].innerText = inputImageCaption.value;
+                        isCaptionClickable = true;
+                        showSavedCaption();
+                        setTimeout(hideSavedCaption, 2000);
+                    }
+                }
+                if (event.key === "Escape") {
+                    tierImageTitle.innerHTML = currentImageCaption;
+                    isCaptionClickable = true;
+                }
+            });
+        }
+    });
+
+    // Caption saved tooltip
+    var captionSaved = document.createElement("div");
+    captionSaved.setAttribute("id", "caption-saved");
+    captionSaved.innerText = "Image caption saved!";
+    document.body.appendChild(captionSaved);
+
+    function showSavedCaption() {
+        document.getElementById("caption-saved").style.transform = "scale(1)";
+        document.getElementById("caption-saved").style.visibility = "visible";
+    }
+    function hideSavedCaption() {
+        document.getElementById("caption-saved").style.transform = "scale(0)";
+        document.getElementById("caption-saved").style.visibility = "hidden";
     }
     //----------//
     
