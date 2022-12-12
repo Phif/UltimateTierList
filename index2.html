@@ -2,45 +2,47 @@
 
 <body>
     <style>
-        .container {
+        .tier-image {
             width: 100px;
             height: 100px;
             border-radius: 10px;
             overflow: hidden;
         }
         
-        .thumbnail {
+        .tier-image img {
             object-fit: cover;
-            width: 100px;
-            height: 100px;
         } 
-
+        
         #preview {
-
+            
         }
     </style>
     <div>
-        <input type="file" id="image-input" accept="image/*" multiple>
+        <input type="file" id="input-file" accept="image/*" multiple>
     </div>
-    <img id="preview"></img>    
     
     <script>
-        let imgInput = document.getElementById('image-input');
+        var croppedElement;
+        var tierImageId = 0;
+        let imgInput = document.getElementById('input-file');
         imgInput.addEventListener('change', function (e) {
             if (e.target.files) {
                 let imageFile = e.target.files;
-                console.log(imageFile[0]);
                 for (let i = 0; i < imageFile.length; i++) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                        var div = document.createElement("div");   
-                        div.setAttribute("id", `container-${i}`);
-
-                        var img = document.createElement("img");
-                        div.setAttribute("class", "container");
-                        img.setAttribute("class", "thumbnail");
+                        const div = document.createElement("div");   
+                        div.setAttribute("class", "tier-image");
                         
-                        img.addEventListener("load", function () {
+                        const img = document.createElement("img");
+                        img.title = imageFile[i].name.match(/.*(?=\.)/i);     
+                        
+                        const span = document.createElement("span");
+                        span.setAttribute("class", "caption");
+                        span.innerText = img.getAttribute("title");
+                        // if (isCaptionOn) {span.style.visibility = "visible";}
+                        
+                        img.addEventListener("load", function addImage() {
                             var canvas = document.createElement("canvas");
                             var ctx = canvas.getContext("2d");
                             
@@ -62,16 +64,40 @@
                             canvas.setAttribute("height", imageHeight);
                             
                             ctx.drawImage(img, 0, 0, imageWidth, imageHeight);
-                            // ctx.drawImage(img, (maxWidth/2-imageWidth/2), (maxHeight/2-imageHeight/2), imageWidth, imageHeight);
                             
                             const dataurl = canvas.toDataURL(imageFile[i].type);
                             img.src = dataurl;
-                            this.removeEventListener("load", arguments.callee);
+                            
+                            div.setAttribute("id", `tier-image-${tierImageId}`);
+                            img.setAttribute("id", `image-${tierImageId}`)
+                            document.getElementById(`image-${tierImageId}`).style.width = "100px";
+                            document.getElementById(`image-${tierImageId}`).style.height = "100px";
+                            
+                            console.log("ok " + tierImageId);
+                            tierImageId += 1;
+                            this.removeEventListener("load", addImage);
                         });
                         img.src = e.target.result;
                         
                         document.body.appendChild(div);
                         div.appendChild(img);
+                        div.appendChild(span);
+                        
+                        // li.addEventListener("dragstart", function() {
+                        //     draggedElement = li;
+                        // });
+                        // li.addEventListener("dblclick", function() {
+                        //     croppedElement = li;
+                        //     cropThumbnail.setAttribute("src", croppedElement.childNodes[0].src);
+                        //     croppedElement.childNodes[0].src = croppedElement.childNodes[0].getAttribute("originalsrc");
+                        //     croppie.bind({
+                        //         url : croppedElement.childNodes[0].src
+                        //     });
+                        //     var imageCaption = croppedElement.childNodes[0].getAttribute("title");
+                        //     document.getElementById("tier-image-title").innerText = imageCaption;
+                        //     document.getElementById("crop-container").style.visibility = "visible";
+                        // });
+                        
                     }
                     reader.readAsDataURL(imageFile[i]);
                 }

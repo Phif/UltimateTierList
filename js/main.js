@@ -37,7 +37,7 @@ $(function() {
     let cropThumbnail = document.getElementById("crop-image-thumbnail");
     
     var croppie = new Croppie(document.getElementById('crop-image'), {
-        showZoomer: true
+        showZoomer: false
     });
     
     // Preview
@@ -261,30 +261,65 @@ $(function() {
     //----------//
     
     //----- ADD IMAGES -----//
-    let tierImageId = 0; 
-    let croppedElement;
-    document.querySelector("#input-file").addEventListener("change", (e) => { 
-        if (window.File && window.FileReader && window.FileList && window.Blob) {
-            var files = e.target.files;  
-            const ul = document.querySelector("#images-list");
-            for (let i = 0 ; i < files.length ; i++) {
-                if (!files[i].type.match("image")) continue;
-                const reader = new FileReader();
-                reader.addEventListener("load", function (event) {
-                    const li = document.createElement("li");
+    const ul = document.querySelector("#images-list");
+    var croppedElement;
+    var tierImageId = 0;
+    let imgInput = document.getElementById('input-file');
+    imgInput.addEventListener('change', function (e) {
+        if (e.target.files) {
+            let imageFile = e.target.files;
+            for (let i = 0; i < imageFile.length; i++) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    const li = document.createElement("li");   
                     li.setAttribute("class", "tier-image");
-                    li.setAttribute("id", `tier-image-${tierImageId}`);
-                    tierImageId += 1;
-
+                    
                     const img = document.createElement("img");
-                    img.src = event.target.result;                    
-                    img.setAttribute("originalsrc", img.getAttribute("src"));
-                    img.title = files[i].name.match(/.*(?=\.)/i);
+                    img.title = imageFile[i].name.match(/.*(?=\.)/i);     
                     
                     const span = document.createElement("span");
                     span.setAttribute("class", "caption");
                     span.innerText = img.getAttribute("title");
                     if (isCaptionOn) {span.style.visibility = "visible";}
+                    
+                    img.addEventListener("load", function addImage() {
+                        var canvas = document.createElement("canvas");
+                        var ctx = canvas.getContext("2d");
+                        
+                        var imageWidth = img.width;
+                        var imageHeight = img.height;
+                        
+                        var maxWidth = 1000;
+                        var maxHeight = 1000;
+                        
+                        if (imageWidth >= imageHeight) {
+                            imageWidth = imageWidth*maxHeight/imageHeight;
+                            imageHeight = maxHeight;
+                        } else {
+                            imageHeight = imageHeight*maxWidth/imageWidth;
+                            imageWidth = maxWidth;
+                        }
+                        
+                        canvas.setAttribute("width", imageWidth);
+                        canvas.setAttribute("height", imageHeight);
+                        
+                        ctx.drawImage(img, 0, 0, imageWidth, imageHeight);
+                        
+                        const dataurl = canvas.toDataURL(imageFile[i].type);
+                        img.src = dataurl;
+                        
+                        li.setAttribute("id", `tier-image-${tierImageId}`);
+                        img.setAttribute("id", `image-${tierImageId}`)
+                        img.setAttribute("originalsrc", img.getAttribute("src"));
+
+                        document.getElementById(`image-${tierImageId}`).style.width = "100px";
+                        document.getElementById(`image-${tierImageId}`).style.height = "100px";
+                        
+                        console.log("ok " + tierImageId);
+                        tierImageId += 1;
+                        this.removeEventListener("load", addImage);
+                    });
+                    img.src = e.target.result;
                     
                     ul.appendChild(li);
                     li.appendChild(img);
@@ -304,11 +339,10 @@ $(function() {
                         document.getElementById("tier-image-title").innerText = imageCaption;
                         document.getElementById("crop-container").style.visibility = "visible";
                     });
-                });
-                reader.readAsDataURL(files[i]);                
+                    
+                }
+                reader.readAsDataURL(imageFile[i]);
             }
-        } else {
-            alert("Your browser does not support File API");
         }
     });
     //----------//
