@@ -2,10 +2,10 @@ $(function() {
     // SHOW/HIDE CAPTIONS //
     var isCaptionOn = false;
     toggleCaptionOff();
-
+    
     document.getElementById("toggle-image-captions").addEventListener("click", function() {
         let captionArray = document.querySelectorAll(".caption");
-
+        
         if (isCaptionOn) {
             captionArray.forEach(element => {
                 element.style.visibility = "hidden";
@@ -18,21 +18,21 @@ $(function() {
             toggleCaptionOn();
         }
     })
-
+    
     function toggleCaptionOn() {
         document.getElementById("toggle-image-captions").childNodes[1].innerHTML = "subtitles";
         document.getElementById("toggle-image-captions").style.backgroundColor = "#4bd74b";
         document.getElementById("toggle-image-captions").setAttribute("title", "Click to hide image captions");
         isCaptionOn = true;
     }
-
+    
     function toggleCaptionOff() {
         document.getElementById("toggle-image-captions").childNodes[1].innerHTML = "subtitles_off";
         document.getElementById("toggle-image-captions").style.backgroundColor = "white";
         document.getElementById("toggle-image-captions").setAttribute("title", "Click to display image captions");
         isCaptionOn = false;
     }
-
+    
     // CROPPIE //
     let cropThumbnail = document.getElementById("crop-image-thumbnail");
     
@@ -75,7 +75,7 @@ $(function() {
             croppedElement.childNodes[0].setAttribute("src", newSrc);
         });
     }
-
+    
     // Quit
     document.getElementById("button-crop-cancel").addEventListener("click", function() {
         quitCropping();
@@ -86,7 +86,7 @@ $(function() {
             quitCropping();
         }
     })
-
+    
     function quitCropping() {
         croppedElement.childNodes[0].setAttribute("src", cropThumbnail.src);
         document.getElementById("crop-container").style.visibility = "hidden";
@@ -271,25 +271,25 @@ $(function() {
                 if (!files[i].type.match("image")) continue;
                 const reader = new FileReader();
                 reader.addEventListener("load", function (event) {
-                    const addedFile = event.target;
                     const li = document.createElement("li");
                     li.setAttribute("class", "tier-image");
                     li.setAttribute("id", `tier-image-${tierImageId}`);
                     tierImageId += 1;
+
                     const img = document.createElement("img");
-                    img.src = addedFile.result;
+                    img.src = event.target.result;                    
                     img.setAttribute("originalsrc", img.getAttribute("src"));
                     img.title = files[i].name.match(/.*(?=\.)/i);
-
+                    
                     const span = document.createElement("span");
                     span.setAttribute("class", "caption");
                     span.innerText = img.getAttribute("title");
                     if (isCaptionOn) {span.style.visibility = "visible";}
-
+                    
                     ul.appendChild(li);
                     li.appendChild(img);
                     li.appendChild(span);
-
+                    
                     li.addEventListener("dragstart", function() {
                         draggedElement = li;
                     });
@@ -383,7 +383,7 @@ $(function() {
             })
         });
     }
-
+    
     // Image caption
     var tierImageTitle = document.getElementById("tier-image-title");
     var isCaptionClickable = true;
@@ -417,13 +417,13 @@ $(function() {
             });
         }
     });
-
+    
     // Caption saved tooltip
     var captionSaved = document.createElement("div");
     captionSaved.setAttribute("id", "caption-saved");
     captionSaved.innerText = "Image caption saved!";
     document.body.appendChild(captionSaved);
-
+    
     function showSavedCaption() {
         document.getElementById("caption-saved").style.transform = "scale(1)";
         document.getElementById("caption-saved").style.visibility = "visible";
