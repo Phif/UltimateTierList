@@ -32,7 +32,9 @@ $(function() {
         document.getElementById("toggle-image-captions").setAttribute("title", "Click to display image captions");
         isCaptionOn = false;
     }
+    //----------//
     
+
     //----- CROPPIE -----//
     let cropThumbnail = document.getElementById("crop-image-thumbnail");
     
@@ -95,6 +97,7 @@ $(function() {
     }
     //----------//
     
+
     //----- SORTABLE -----//
     var el = document.querySelector('#tier-list');
     new Sortable(el, {
@@ -126,6 +129,7 @@ $(function() {
     }
     //----------//
     
+
     //----- MOUSE EVENTS -----//
     $(document).on("mouseleave", ".tier-image", function() {
         $(this).css('z-index', 1);
@@ -188,6 +192,7 @@ $(function() {
     });
     //----------//
     
+
     //----- ADD NEW TIER -----//
     let divTierNumber = 5;
     
@@ -542,5 +547,4 @@ $(function() {
         });
     });
     //----------//
-    
 });
