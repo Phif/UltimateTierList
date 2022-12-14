@@ -1,5 +1,5 @@
 $(function() {
-    // SHOW/HIDE CAPTIONS //
+    //----- SHOW/HIDE CAPTIONS -----//
     var isCaptionOn = false;
     toggleCaptionOff();
     
@@ -33,7 +33,7 @@ $(function() {
         isCaptionOn = false;
     }
     
-    // CROPPIE //
+    //----- CROPPIE -----//
     let cropThumbnail = document.getElementById("crop-image-thumbnail");
     
     var croppie = new Croppie(document.getElementById('crop-image'), {
@@ -55,7 +55,7 @@ $(function() {
     // Confirm
     document.getElementById("button-crop-confirm").addEventListener("click", function() {
         if (croppedElement.childNodes[0].getAttribute("originalsrc").match(/data:image\/gif/gi)) {
-            if (confirm("Cropping this GIF will turn it into a standard image with no animations. This change can't be reverted unless you reupload the image.\rAre you sure?")) {
+            if (confirm("Cropping this GIF will turn it into a standard image with no animations. This change can't be reverted unless you reupload the image.\nAre you sure?")) {
                 executeCropping();
             }
         } else {
@@ -93,6 +93,7 @@ $(function() {
         cropThumbnail.style.visibility = "hidden";
         isCaptionClickable = true;
     }
+    //----------//
     
     //----- SORTABLE -----//
     var el = document.querySelector('#tier-list');
@@ -187,7 +188,7 @@ $(function() {
     });
     //----------//
     
-    /* ADD NEW TIER */
+    //----- ADD NEW TIER -----//
     let divTierNumber = 5;
     
     // Default colors
@@ -264,10 +265,17 @@ $(function() {
     const ul = document.querySelector("#images-list");
     var croppedElement;
     var tierImageId = 0;
+    var loadingIndex = 0;
+    var loadingMax = 0;
     let imgInput = document.getElementById('input-file');
     imgInput.addEventListener('change', function (e) {
-        if (e.target.files) {
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
             let imageFile = e.target.files;
+            loadingIndex = 0;
+            loadingMax = imageFile.length;
+            if (loadingMax != 0) {
+                showProcessingImages();
+            }
             for (let i = 0; i < imageFile.length; i++) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
@@ -311,14 +319,18 @@ $(function() {
                         li.setAttribute("id", `tier-image-${tierImageId}`);
                         img.setAttribute("id", `image-${tierImageId}`)
                         img.setAttribute("originalsrc", img.getAttribute("src"));
-
+                        
                         document.getElementById(`image-${tierImageId}`).style.width = "100px";
                         document.getElementById(`image-${tierImageId}`).style.height = "100px";
                         
-                        console.log("ok " + tierImageId);
                         tierImageId += 1;
+                        loadingIndex += 1;
+
+                        updateProcessingImages(loadingIndex, loadingMax)
+
                         this.removeEventListener("load", addImage);
                     });
+
                     img.src = e.target.result;
                     
                     ul.appendChild(li);
@@ -347,6 +359,7 @@ $(function() {
     });
     //----------//
     
+    
     //----- DELETE ONE TIER / IMAGE -----//
     let deleteZone = document.querySelector("#delete-zone");
     let draggedElement;
@@ -354,21 +367,21 @@ $(function() {
     deleteZone.ondrop = function(){
         draggedElement.remove();
     };
-    
     //----------//
+    
     
     //----- DELETE ALL IMAGES -----//
     const deleteAllTierImages = document.querySelector("#delete-all-images");
     deleteAllTierImages.addEventListener("click", function() { 
-        if (confirm("This will delete ALL the images that you uploaded.\rAre you sure?")) {
+        if (confirm("This will delete ALL the images that you uploaded.\nAre you sure?")) {
             let allTierImages = document.querySelectorAll(".tier-image");
             allTierImages.forEach(element => {     
                 element.remove();
             });
         }
     });
-    
     //----------//
+    
     
     //----- TEXT EDITS -----//
     // Tier List title
@@ -451,22 +464,60 @@ $(function() {
             });
         }
     });
+    //----------//
     
-    // Caption saved tooltip
-    var captionSaved = document.createElement("div");
-    captionSaved.setAttribute("id", "caption-saved");
-    captionSaved.innerText = "Image caption saved!";
-    document.body.appendChild(captionSaved);
+    
+    //----- TOOLTIPS -----/
+    // Caption saved
+    var tooltipCaptionSaved = document.createElement("div");
+    tooltipCaptionSaved.setAttribute("id", "caption-saved");
+    tooltipCaptionSaved.setAttribute("class", "tooltip green");
+    tooltipCaptionSaved.innerText = "Image caption saved!";
+    document.body.appendChild(tooltipCaptionSaved);
     
     function showSavedCaption() {
-        document.getElementById("caption-saved").style.transform = "scale(1)";
-        document.getElementById("caption-saved").style.visibility = "visible";
+        tooltipCaptionSaved.style.transform = "scale(1)";
+        tooltipCaptionSaved.style.visibility = "visible";
     }
     function hideSavedCaption() {
-        document.getElementById("caption-saved").style.transform = "scale(0)";
-        document.getElementById("caption-saved").style.visibility = "hidden";
+        tooltipCaptionSaved.style.transform = "scale(0)";
+        tooltipCaptionSaved.style.visibility = "hidden";
+    }
+    
+    // Processing images
+    var tooltipProcessingImages = document.createElement("div");
+    tooltipProcessingImages.setAttribute("id", "processing-images");
+    tooltipProcessingImages.setAttribute("class", "tooltip blue");
+    tooltipProcessingImages.innerText = "Processing your images: ";
+    document.body.appendChild(tooltipProcessingImages);
+    var tooltipDotLoading = ".";
+    
+    function showProcessingImages() {
+        tooltipProcessingImages.style.transform = "scale(1)";
+        tooltipProcessingImages.style.visibility = "visible";
+    }
+    function hideProcessingImages() {
+        tooltipProcessingImages.style.transform = "scale(0)";
+        tooltipProcessingImages.style.visibility = "hidden";
+    }
+    function updateProcessingImages(current, max) {
+        if (current <= max && max != 0) {
+            tooltipProcessingImages.innerText = `Processing your images${tooltipDotLoading + tooltipDotLoading.repeat(current%3)} \n ${current} / ${max} \n ${(Math.trunc((current / max)*100))}%`;
+        }
+        if (current >= max && max != 0) {
+            setTimeout(() => {
+                max = 0;
+                tooltipProcessingImages.setAttribute("class", "tooltip green");
+                tooltipProcessingImages.innerText = `${current} images have been successfully imported!`;
+                tooltipProcessingImages.style.transform = "scale(1.2)";   
+                setTimeout(() => {tooltipProcessingImages.style.transform = "scale(1)";}, 200);         
+                setTimeout(hideProcessingImages, 2000);
+                setTimeout(() => {tooltipProcessingImages.setAttribute("class", "tooltip blue");}, 2000);
+            }, 500);
+        }
     }
     //----------//
+    
     
     /* COLOR PICKER */
     let colorPickers = document.querySelectorAll(".color-picker");
@@ -480,6 +531,7 @@ $(function() {
         });
     }
     //----------//
+    
     
     //----- DOWNLOAD TIER LIST AS JPG -----//
     $( "#download-tier-list" ).on( "click", function() {

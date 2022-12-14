@@ -156,14 +156,12 @@ header img {
   height: 100px;
 }
 
-#caption-saved {
+.tooltip {
   position: fixed;
   bottom: 50px;
   left: calc(50% - 100px);
   width: 200px;
-  border: 2px solid green;
   border-radius: 10px;
-  background-color: lightgreen;
   padding: 10px;
   text-align: center;
   transition: all ease-in-out 0.2s;
@@ -172,9 +170,24 @@ header img {
   z-index: 10;
 }
 
+.tooltip.green {
+  border: 2px solid green;
+  background-color: lightgreen;
+}
+
+.tooltip.red {
+  border: 2px solid darkred;
+  background-color: crimson;
+}
+
+.tooltip.blue {
+  border: 2px solid darkcyan;
+  background-color: #4bb4dc;
+}
+
 /* TIERLIST */
 main {
-  max-width: 1160px;
+  max-width: 1265px;
   padding: 0 10px;
   margin: auto;
 }
@@ -189,25 +202,6 @@ main {
   gap: 5px;
 }
 
-.tier {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  gap: 5px;
-  padding: 5px;
-  border-radius: 10px;
-  background-color: lightgrey;
-}
-
-.tier-settings {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: space-between;
-  color: black;
-  gap: 10px;
-}
-
 #tier-list-title {
   cursor: pointer;
   text-align: center;
@@ -220,6 +214,26 @@ main {
 #tier-list-title:hover {
   background-color: rgba(255, 255, 255, 0.5);
 }
+
+.tier {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: lightgrey;
+}
+
+/* .tier-settings {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-between;
+  color: black;
+  gap: 10px;
+} */
+
 
 .tier-title {
   display: flex;
@@ -258,6 +272,10 @@ main {
 
 .color-picker:hover {
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.handle {
+  font-size: 23px !important;
 }
 
 .handle:hover {
