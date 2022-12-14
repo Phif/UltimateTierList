@@ -493,7 +493,7 @@ $(function() {
     var tooltipProcessingImages = document.createElement("div");
     tooltipProcessingImages.setAttribute("id", "processing-images");
     tooltipProcessingImages.setAttribute("class", "tooltip blue");
-    tooltipProcessingImages.innerText = "Processing your images: ";
+    tooltipProcessingImages.innerText = "Processing your image(s)...";
     document.body.appendChild(tooltipProcessingImages);
     var tooltipDotLoading = ".";
     
@@ -507,13 +507,13 @@ $(function() {
     }
     function updateProcessingImages(current, max) {
         if (current <= max && max != 0) {
-            tooltipProcessingImages.innerText = `Processing your images${tooltipDotLoading + tooltipDotLoading.repeat(current%3)} \n ${current} / ${max} \n ${(Math.trunc((current / max)*100))}%`;
+            tooltipProcessingImages.innerText = `Processing your image(s)${tooltipDotLoading + tooltipDotLoading.repeat(current%3)} \n ${current} / ${max} \n ${(Math.trunc((current / max)*100))}%`;
         }
         if (current >= max && max != 0) {
             setTimeout(() => {
                 max = 0;
                 tooltipProcessingImages.setAttribute("class", "tooltip green");
-                tooltipProcessingImages.innerText = `${current} images have been successfully imported!`;
+                tooltipProcessingImages.innerText = `${current} image(s) have been successfully imported!`;
                 tooltipProcessingImages.style.transform = "scale(1.2)";   
                 setTimeout(() => {tooltipProcessingImages.style.transform = "scale(1)";}, 200);         
                 setTimeout(hideProcessingImages, 2000);
