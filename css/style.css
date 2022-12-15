@@ -1,3 +1,8 @@
+/* VARIABLES */
+:root {
+  --site-width: 1265px;
+}
+
 /* GENERIC */
 *, *:before, *:after {
   box-sizing: border-box;
@@ -46,7 +51,7 @@ header {
   align-items: center;
   margin: auto;
   gap: 10px;
-  max-width: 1140px;
+  max-width: var(--site-width);
   padding: 0 10px;
 }
 
@@ -187,8 +192,7 @@ header img {
 
 /* TIERLIST */
 main {
-  max-width: 1265px;
-  padding: 0 10px;
+  max-width: var(--site-width);
   margin: auto;
 }
 
@@ -391,7 +395,7 @@ footer {
 }
 
 .footer-container {
-  max-width: 1140px;
+  max-width: var(--site-width);
   padding: 0 10px;
   margin: auto;
   font-size: 1em;
