@@ -3,7 +3,6 @@
   "dependencies": {
     "@eastdesire/jscolor": "^2.5.1",
     "cropperjs": "^1.5.13",
-    "lightbox2": "^2.11.3",
     "sortablejs": "^1.15.0"
   }
 }
