@@ -12,7 +12,13 @@
 
 html {
   font-family: 'Lato', sans-serif;
+  /* background-image: url("../images/tierlist/1920x1080-414922-anime-anime-girls-Nier-Automata-2B-Nier-Automata.jpg"); */
   background-color: antiquewhite;
+  background-position: center;
+}
+
+body {
+  background-color: rgba(250, 235, 215, 0.8);
 }
 
 a {
@@ -33,14 +39,38 @@ button {
   padding: 10px;
   transition: all ease-in-out 0.2s;
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
+  align-items: center;
+  justify-content: center;
 }
 
 button:hover {
   border: 2px solid grey;
 }
 
+.button {
+  cursor: pointer;
+  display: flex;
+  background-color: white;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  padding: 10px;
+  transition: all ease-in-out 0.2s;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
+}
+
+.button:hover {
+  border: 2px solid grey;
+}
+
+.button span {
+  font-size: 30px !important;
+}
+
 /* HEADER */
 header {
+  position: sticky;
+  z-index: 10000;
+  top: 0px;
   background-color: #222222;
   padding: 10px;
 }
@@ -79,39 +109,38 @@ header img {
   font-size: 30px !important;
 }
 
-#share-tier-list {
+.unavailable {
   background-color: crimson;
   cursor: default;
 }
 
-#share-tier-list:hover {
+.unavailable:hover {
   border: 2px solid transparent;
 }
 
 /* CROP */
 #crop-container {
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-flow: column nowrap;
-  gap: 10px;
   position: fixed;
+  padding: 10px;
   width: 100%;
   height: 100%;
-  z-index: 5;
+  z-index: 10001;
   background-color: #222222;
   visibility: hidden;
 }
 
 #crop-image-container {
-  width: 50%;
-  height: 60%;
+  flex: 1 1 0;
+  width: 100%;
   background-color: #222222;
 }
 
 #tier-image-title {
   cursor: pointer;
-  text-align: center;
+  width: fit-content;
   padding: 5px;
   border-radius: 10px;
   transition: all ease-in-out 0.2s;
@@ -149,9 +178,18 @@ header img {
   background-color: #4bd74b;
 }
 
-#button-crop-cancel {
+#button-crop-delete {
   color: white;
-  background-color: #dc143c;
+  background-color: crimson;
+}
+
+#button-crop-cancel {
+  align-self: flex-start;
+  width: fit-content;
+  height: fit-content;
+  margin-bottom: 10px;
+  color: black;
+  background-color: white;
 }
 
 #crop-image-thumbnail {
@@ -238,6 +276,26 @@ main {
   gap: 10px;
 } */
 
+.tier-options {
+  height: 100px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+
+.delete-tier {
+  transition: all linear 0.2s;
+}
+
+.delete-tier:hover {
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.hidden {
+  visibility: hidden;
+}
 
 .tier-title {
   display: flex;
@@ -280,9 +338,12 @@ main {
 
 .handle {
   font-size: 23px !important;
+  /* transition: all linear 0.2s; */
 }
 
 .handle:hover {
+  /* border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.5);; */
   cursor: move;
 }
 
@@ -292,6 +353,7 @@ main {
   padding: 10px;
   gap: 5px;
   margin: 0;
+  min-height: 120px;
 }
 
 .tier-image {
@@ -326,7 +388,7 @@ main {
 }
 
 /* ACTIONS */
-.action-container {
+/* .action-container {
   display: flex;
   flex-flow: row wrap;
   gap: 5px;
@@ -372,17 +434,15 @@ main {
 
 #delete-zone:hover {
   cursor: default;
-}
+} */
 
 #input-file {
-  position: absolute;
-  top: 0;
-  left: 0;
+  width: 0.1px;
+  height: 0.1px;
   opacity: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  cursor: pointer;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
 /* FOOTER */

@@ -9,7 +9,7 @@ $(function() {
         });
         return uuid;
     }
-
+    
     //----- SHOW/HIDE CAPTIONS -----//
     var isCaptionOn = false;
     toggleCaptionOff();
@@ -33,36 +33,22 @@ $(function() {
     function toggleCaptionOn() {
         document.getElementById("toggle-image-captions").childNodes[1].innerHTML = "subtitles";
         document.getElementById("toggle-image-captions").style.backgroundColor = "#4bd74b";
-        document.getElementById("toggle-image-captions").setAttribute("title", "Click to hide image captions");
+        document.getElementById("toggle-image-captions").setAttribute("title", "Hide image captions");
         isCaptionOn = true;
     }
     
     function toggleCaptionOff() {
         document.getElementById("toggle-image-captions").childNodes[1].innerHTML = "subtitles_off";
         document.getElementById("toggle-image-captions").style.backgroundColor = "white";
-        document.getElementById("toggle-image-captions").setAttribute("title", "Click to display image captions");
+        document.getElementById("toggle-image-captions").setAttribute("title", "Display image captions");
         isCaptionOn = false;
     }
     //----------//
     
-
-    //----- CROPPIE -----//
-    let cropThumbnail = document.getElementById("crop-image-thumbnail");
     
+    //----- CROPPIE -----// 
     var croppie = new Croppie(document.getElementById('crop-image'), {
         showZoomer: false
-    });
-    
-    // Preview
-    document.getElementById("button-crop-preview").addEventListener("click", function() {
-        cropThumbnail.style.visibility = "visible";
-        
-        croppie.result({
-            type: 'base64',
-            size: {width: 200, height: 200},
-        }).then((newSrc) => {
-            cropThumbnail.setAttribute("src", newSrc);
-        });
     });
     
     // Confirm
@@ -78,8 +64,6 @@ $(function() {
     
     function executeCropping() {
         document.getElementById("crop-container").style.visibility = "hidden";
-        cropThumbnail.setAttribute("src", "");
-        cropThumbnail.style.visibility = "hidden";
         
         croppie.result({
             type: 'base64',
@@ -88,6 +72,12 @@ $(function() {
             croppedElement.childNodes[0].setAttribute("src", newSrc);
         });
     }
+    
+    // Delete
+    document.getElementById("button-crop-delete").addEventListener("click", function() {
+        croppedElement.remove();
+        document.getElementById("crop-container").style.visibility = "hidden";
+    });
     
     // Quit
     document.getElementById("button-crop-cancel").addEventListener("click", function() {
@@ -101,14 +91,12 @@ $(function() {
     })
     
     function quitCropping() {
-        croppedElement.childNodes[0].setAttribute("src", cropThumbnail.src);
         document.getElementById("crop-container").style.visibility = "hidden";
-        cropThumbnail.style.visibility = "hidden";
         isCaptionClickable = true;
     }
     //----------//
     
-
+    
     //----- SORTABLE -----//
     var el = document.querySelector('#tier-list');
     new Sortable(el, {
@@ -140,7 +128,7 @@ $(function() {
     }
     //----------//
     
-
+    
     //----- MOUSE EVENTS -----//
     $(document).on("mouseleave", ".tier-image", function() {
         $(this).css('z-index', 1);
@@ -159,52 +147,11 @@ $(function() {
         $(this).css('transition', 'all ease-in-out 0.2s');
         $(this).css('z-index', 1);
     });
-    
-    $("#add-image").on({
-        mouseenter: function() {
-            $(this).css('border', '5px solid mediumturquoise');
-            $(this).css('color', 'mediumturquoise');
-        },
-        dragover: function() {
-            $(this).css('border', '5px solid mediumturquoise');
-            $(this).css('color', 'mediumturquoise');
-        },
-        mouseleave: function() {
-            $(this).css('border', '0px solid transparent');
-            $(this).css('color', 'black');
-        },
-        dragleave: function() {
-            $(this).css('border', '0px solid transparent');
-            $(this).css('color', 'black');
-        },
-        drop: function() {
-            $(this).css('border', '0px solid transparent');
-            $(this).css('color', 'black');
-        }
-    });
-    
-    $("#delete-zone").on({
-        mouseleave: function() {
-            $(this).css('border', '2px dashed grey');
-            $(this).css('color', 'black');
-        },
-        dragover: function() {
-            $(this).css('border', '5px solid crimson');
-            $(this).css('color', 'crimson');
-        },
-        dragleave: function() {
-            $(this).css('border', '2px dashed grey');
-            $(this).css('color', 'black');
-        },
-        drop: function() {
-            $(this).css('border', '2px dashed grey');
-            $(this).css('color', 'black');
-        }
-    });
     //----------//
     
-
-    //----- ADD NEW TIER -----//
+    
+    //----- ADD TIER -----//
+    let draggedElement;
     let divTierNumber = 5;
     
     // Default colors
@@ -229,28 +176,31 @@ $(function() {
         divTier.setAttribute("class", "tier");
         divTier.setAttribute("id", `tier-${divTierNumber}`);
         divTier.setAttribute("style", "background-color : #ccc;");
-        divTier.setAttribute("title", "Click to edit");
+        
+        let divTierOptions = document.createElement("div");
+        divTierOptions.setAttribute("class", "tier-options");
+        
+        let deleteTierIcon = document.createElement("span");
+        deleteTierIcon.setAttribute("class", "material-symbols-rounded delete-tier");
+        deleteTierIcon.innerText = "close";
         
         let dragTierIcon = document.createElement("span");
         dragTierIcon.setAttribute("class", "material-symbols-rounded handle");
-        dragTierIcon.setAttribute("data-html2canvas-ignore", "");
         dragTierIcon.innerText = "drag_indicator";
+        
+        let hiddenTierIcon = document.createElement("span");
+        hiddenTierIcon.setAttribute("class", "material-symbols-rounded hidden");
+        hiddenTierIcon.innerText = "close";
         
         let buttonColorPicker = document.createElement("button");
         buttonColorPicker.setAttribute("class", "color-picker");
         buttonColorPicker.setAttribute("title", "Pick a color!");
         buttonColorPicker.setAttribute("data-html2canvas-ignore", "");
         
-        // let inputColorPicker = document.createElement("input");
-        // inputColorPicker.setAttribute("type", "color");
-        // inputColorPicker.setAttribute("value", "#ffffff");
-        // inputColorPicker.setAttribute("class", "color-picker");
-        // inputColorPicker.setAttribute("title", "Pick a color!");
-        // inputColorPicker.setAttribute("data-html2canvas-ignore", "");
-        
         let divTierTitle = document.createElement("div");
         divTierTitle.setAttribute("class", "tier-title");
         divTierTitle.setAttribute("id", `tier-title-${divTierNumber}`);
+        divTierTitle.setAttribute("title", "Click to edit");
         divTierTitle.innerText = "New Tier";
         
         let divTierImages = document.createElement("div");
@@ -260,20 +210,18 @@ $(function() {
         let divTierList = document.querySelector("#tier-list");
         
         divTierList.appendChild(divTier);
-        divTier.appendChild(dragTierIcon);
+        divTier.appendChild(divTierOptions);
+        divTierOptions.appendChild(deleteTierIcon);
+        divTierOptions.appendChild(dragTierIcon);
+        divTierOptions.appendChild(hiddenTierIcon);
         divTier.appendChild(buttonColorPicker);
-        // divTier.appendChild(inputColorPicker);
         divTier.appendChild(divTierTitle);
         divTier.appendChild(divTierImages);
         new JSColor(buttonColorPicker, {onInput: `update(this, \'#tier-${divTierNumber}\')`, value: "#fff"});
         
-        dragTierIcon.addEventListener("mousedown", function() {
-            draggedElement = divTier;
-        })
-        
-        // updateColorPickers();
         updateTierTitles();
         updateSortables();
+        updateDeleteTier();
     });
     //----------//
     
@@ -284,6 +232,7 @@ $(function() {
     var loadingIndex = 0;
     var loadingMax = 0;
     let imgInput = document.getElementById('input-file');
+    
     imgInput.addEventListener('change', function (e) {
         if (window.File && window.FileReader && window.FileList && window.Blob) {
             let imageFile = e.target.files;
@@ -341,12 +290,12 @@ $(function() {
                         
                         tierImageId += 1;
                         loadingIndex += 1;
-
+                        
                         updateProcessingImages(loadingIndex, loadingMax)
-
+                        
                         this.removeEventListener("load", addImage);
                     });
-
+                    
                     img.src = e.target.result;
                     
                     ul.appendChild(li);
@@ -358,7 +307,6 @@ $(function() {
                     });
                     li.addEventListener("dblclick", function() {
                         croppedElement = li;
-                        cropThumbnail.setAttribute("src", croppedElement.childNodes[0].src);
                         croppedElement.childNodes[0].src = croppedElement.childNodes[0].getAttribute("originalsrc");
                         croppie.bind({
                             url : croppedElement.childNodes[0].src
@@ -373,16 +321,26 @@ $(function() {
             }
         }
     });
+    
+    imgInput.addEventListener('click', function() {
+        imgInput.value = '';
+    })
     //----------//
     
     
-    //----- DELETE ONE TIER / IMAGE -----//
-    let deleteZone = document.querySelector("#delete-zone");
-    let draggedElement;
+    //----- DELETE A TIER -----//
+    updateDeleteTier();
     
-    deleteZone.ondrop = function(){
-        draggedElement.remove();
-    };
+    function updateDeleteTier() {
+        let deleteTier = document.querySelectorAll(".delete-tier");
+        for (let i = 0; i < deleteTier.length; i++) {
+            deleteTier[i].addEventListener("click", function() {
+                if (confirm("This tier and all the images inside it will be deleted.\nAre you sure?")) {
+                    deleteTier[i].parentNode.parentNode.remove();
+                }
+            })        
+        }
+    }
     //----------//
     
     
@@ -533,21 +491,6 @@ $(function() {
         }
     }
     //----------//
-    
-    
-    /* COLOR PICKER */
-    let colorPickers = document.querySelectorAll(".color-picker");
-    updateColorPickers();
-    function updateColorPickers() {
-        colorPickers = document.querySelectorAll(".color-picker");
-        colorPickers.forEach(element => {
-            element.addEventListener("input", function() { 
-                element.parentElement.style.backgroundColor = event.target.value;
-            });
-        });
-    }
-    //----------//
-    
     
     //----- DOWNLOAD TIER LIST AS JPG -----//
     $( "#download-tier-list" ).on( "click", function() {
