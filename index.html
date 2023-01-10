@@ -24,46 +24,46 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" />
 </head>
 
-<body>
-  <!-- LIBRAIRIES -->
-  <script src="./js/jquery-3.6.1.min.js"></script>
-  <script src="./node_modules/sortablejs/Sortable.min.js"></script>
-  <script src="./js/html2canvas.min.js"></script> <!-- Edited with object-fit fix -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
-  <script src="./js/jscolor-2.5.1/jscolor.min.js"></script>
-  
-  <!-- JS -->
-  <script type="module" src="./js/main.js"></script>
-  
-  <!-- CROPPER -->
-  <div id="crop-container">
-    <button id="button-crop-cancel" title="Quit editing"><span class="material-symbols-rounded">close</span></button>
-    <div id="crop-image-container">
-      <img id="crop-image" alt="Image being cropped">
-    </div>
-    <h2 id="tier-image-title" title="Click to edit"></h2>
-      <div id="crop-button-container">
-        <button id="button-crop-confirm" title="Confirm cropping"><span class="material-symbols-rounded">check</span></button>
-        <button id="button-crop-delete" title="Delete image"><span class="material-symbols-rounded">delete</span></button>
-      </div>
+<!-- LIBRAIRIES -->
+<script src="./js/jquery-3.6.1.min.js"></script>
+<script src="./node_modules/sortablejs/Sortable.min.js"></script>
+<script src="./js/html2canvas.min.js"></script> <!-- Edited with object-fit fix -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+<script src="./js/jscolor-2.5.1/jscolor.min.js"></script>
+
+<!-- JS -->
+<script type="module" src="./js/main.js"></script>
+
+<!-- CROPPER -->
+<div id="crop-container">
+  <button id="button-crop-cancel" title="Quit editing"><span class="material-symbols-rounded">close</span></button>
+  <div id="crop-image-container">
+    <img id="crop-image" alt="Image being cropped">
   </div>
-  
-  <!-- JSCOLOR -->
-  <script>
-    jscolor.presets.default = {
-      palette:'"#dc143c", "#ff8c00", "#ffd700", "#4bd74b", "#4bb4dc", "#da70d6"', 
-      paletteCols:6, paletteSetsAlpha:false, paletteHeight:20, 
-      backgroundColor:'#FFFFFF', borderColor:'#FFFFFF', borderRadius:10, 
-      padding:10, width:120, height:120, closeButton:true, shadowBlur:5
-    };
-    function update(picker, selector) {
-      document.querySelector(selector).style.background = picker.toBackground();
-    }
-    jscolor.trigger('input change');
+  <h2 id="tier-image-title" title="Click to edit"></h2>
+  <div id="crop-button-container">
+    <button id="button-crop-confirm" title="Confirm cropping"><span class="material-symbols-rounded">crop</span></button>
+    <button id="button-crop-delete" title="Delete image"><span class="material-symbols-rounded">delete</span></button>
+  </div>
+</div>
+
+<!-- JSCOLOR -->
+<script>
+  jscolor.presets.default = {
+    palette:'"#dc143c", "#ff8c00", "#ffd700", "#4bd74b", "#4bb4dc", "#da70d6"', 
+    paletteCols:6, paletteSetsAlpha:false, paletteHeight:20, 
+    backgroundColor:'#FFFFFF', borderColor:'#FFFFFF', borderRadius:10, 
+    padding:10, width:120, height:120, closeButton:true, shadowBlur:5
+  };
+  function update(picker, selector) {
+    document.querySelector(selector).style.background = picker.toBackground();
+  }
+  jscolor.trigger('input change');
   </script>
   
   <!-- HTML -->
+  <body>
   <!-- <form action="upload.php" method="post" enctype="multipart/form-data">
     <input type="file" name="files[]" multiple>
     <input type="submit" value="Save Template" id="save-template">

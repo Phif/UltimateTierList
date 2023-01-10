@@ -219,9 +219,13 @@ $(function() {
         divTier.appendChild(divTierImages);
         new JSColor(buttonColorPicker, {onInput: `update(this, \'#tier-${divTierNumber}\')`, value: "#fff"});
         
+        deleteTierIcon.addEventListener("click", function() {
+            if (confirm("This tier and all the images inside it will be deleted.\nAre you sure?")) {
+                deleteTierIcon.parentNode.parentNode.remove();
+            }
+        })        
         updateTierTitles();
         updateSortables();
-        updateDeleteTier();
     });
     //----------//
     
@@ -329,18 +333,15 @@ $(function() {
     
     
     //----- DELETE A TIER -----//
-    updateDeleteTier();
-    
-    function updateDeleteTier() {
-        let deleteTier = document.querySelectorAll(".delete-tier");
-        for (let i = 0; i < deleteTier.length; i++) {
-            deleteTier[i].addEventListener("click", function() {
-                if (confirm("This tier and all the images inside it will be deleted.\nAre you sure?")) {
-                    deleteTier[i].parentNode.parentNode.remove();
-                }
-            })        
-        }
+    let deleteTierIcons = document.querySelectorAll(".delete-tier");
+    for (let i = 0; i < deleteTierIcons.length; i++) {
+        deleteTierIcons[i].addEventListener("click", function() {
+            if (confirm("This tier and all the images inside it will be deleted.\nAre you sure?")) {
+                deleteTierIcons[i].parentNode.parentNode.remove();
+            }
+        });        
     }
+    
     //----------//
     
     
